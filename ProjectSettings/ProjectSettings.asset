@@ -706,7 +706,7 @@ PlayerSettings:
     m_ModelFolderPath: 
     m_PortalFolderPath: 
   luminCert:
-    m_CertPath: D:/georg/Research/Unity-Order-Picking-MagicLeap/Unity-Order-Picking-MagicLeap/georgiannalin.cert
+    m_CertPath: C:/Users/georg/Desktop/Unity-Order-Picking-MagicLeap/georgiannalin.cert
     m_PrivateKeyPath: 
   luminIsChannelApp: 0
   luminVersion:
