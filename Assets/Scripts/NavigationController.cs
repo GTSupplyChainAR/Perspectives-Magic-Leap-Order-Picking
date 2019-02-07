@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.XR.MagicLeap;
 using System.IO;
 using UnityEngine.Networking;
 using System;
@@ -9,6 +10,11 @@ using System.Threading;
 
 public class NavigationController : MonoBehaviour {
 
+    //MLInputController
+    //Bumper for back, trigger for select
+    private const float _triggerThreshold = 0.2f;
+    private bool _bumperUp = false;
+    private MLInputController _controller;
 
     // data model;
     private int selectedUserId = 0;
@@ -60,9 +66,42 @@ public class NavigationController : MonoBehaviour {
         completionView.SetActive(false);
         currentActiveView = userSelectionView;
 
+        //controller
+        MLInput.Start();
+        _controller = MLInput.GetController(MLInput.Hand.Left);
+        MLInput.OnControllerButtonUp += OnButtonUp;
 
 
     }
+
+    private void OnDestroy()
+    {
+        MLInput.Stop();
+    }
+
+    private bool checkTrigger()
+    {
+        if (_controller.TriggerValue < _triggerThreshold)
+        {
+            return false;
+        }
+        else
+        {
+            return true;
+        }
+    }
+
+    //Bumper
+    void OnButtonUp(byte controller_id, MLInputControllerButton button)
+    {
+        if (button == MLInputControllerButton.Bumper)
+        {
+            _bumperUp = true;
+        }
+    }
+
+
+
     private void postdata() {
         WWWForm form = new WWWForm();
         form.AddField("userId", selectedUserId);
@@ -99,58 +138,71 @@ public class NavigationController : MonoBehaviour {
 
     private void placementSelectionControl()
     {
-        if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+        if (_controller.TouchpadGesture.Type == MLInputControllerTouchpadGestureType.Swipe &&
+               _controller.TouchpadGestureState != MLInputControllerTouchpadGestureState.End)
         {
-            Vector3 vec = new Vector3(0.01f, 0, 0);
-            userSelectionView.transform.position += vec;
-            phaseSelectionView.transform.position += vec;
-            pathIdSelectionView.transform.position += vec;
-            bookInfoView.transform.position += vec;
-            shelfView.transform.position += vec;
-            completionView.transform.position += vec;
-            placementView.transform.position += vec;
-        }
-        //left
-        else if (Input.GetKey(KeyCode.Numlock))
-        {
-            Vector3 vec = new Vector3(-0.01f, 0, 0);
-            userSelectionView.transform.position += vec;
-            phaseSelectionView.transform.position += vec;
-            pathIdSelectionView.transform.position += vec;
-            bookInfoView.transform.position += vec;
-            shelfView.transform.position += vec;
-            completionView.transform.position += vec;
-            placementView.transform.position += vec;
-        }
-        else if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
-        {
-            Vector3 vec = new Vector3(0, 0.01f, 0);
-            userSelectionView.transform.position += vec;
-            phaseSelectionView.transform.position += vec;
-            pathIdSelectionView.transform.position += vec;
-            bookInfoView.transform.position += vec;
-            shelfView.transform.position += vec;
-            completionView.transform.position += vec;
-            placementView.transform.position += vec;
-        }
-        else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-        {
-            Vector3 vec = new Vector3(0, -0.01f, 0);
-            userSelectionView.transform.position += vec;
-            phaseSelectionView.transform.position += vec;
-            pathIdSelectionView.transform.position += vec;
-            bookInfoView.transform.position += vec;
-            shelfView.transform.position += vec;
-            completionView.transform.position += vec;
-            placementView.transform.position += vec;
-        }
-        else if (Input.GetKey(KeyCode.A))
-        {
-            currentActiveView.SetActive(false);
-            pathIdSelectionView.SetActive(true);
-            currentActiveView = pathIdSelectionView;
-            // setup next selection
-            pathIdSelectionView.GetComponent<PathIdSelectionView>().setPhase(selectedPhase);
+            //Down
+            //if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
+            if(_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
+            {
+                Vector3 vec = new Vector3(0.01f, 0, 0);
+                userSelectionView.transform.position += vec;
+                phaseSelectionView.transform.position += vec;
+                pathIdSelectionView.transform.position += vec;
+                bookInfoView.transform.position += vec;
+                shelfView.transform.position += vec;
+                completionView.transform.position += vec;
+                placementView.transform.position += vec;
+            }
+            //Left
+            //else if (Input.GetKey(KeyCode.Numlock))
+            else if(_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Left)
+            {
+                Vector3 vec = new Vector3(-0.01f, 0, 0);
+                userSelectionView.transform.position += vec;
+                phaseSelectionView.transform.position += vec;
+                pathIdSelectionView.transform.position += vec;
+                bookInfoView.transform.position += vec;
+                shelfView.transform.position += vec;
+                completionView.transform.position += vec;
+                placementView.transform.position += vec;
+            }
+            //Up
+            //else if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
+            else if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
+            {
+                Vector3 vec = new Vector3(0, 0.01f, 0);
+                userSelectionView.transform.position += vec;
+                phaseSelectionView.transform.position += vec;
+                pathIdSelectionView.transform.position += vec;
+                bookInfoView.transform.position += vec;
+                shelfView.transform.position += vec;
+                completionView.transform.position += vec;
+                placementView.transform.position += vec;
+            }
+            //Right
+            //else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
+            else if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Right)
+            {
+                Vector3 vec = new Vector3(0, -0.01f, 0);
+                userSelectionView.transform.position += vec;
+                phaseSelectionView.transform.position += vec;
+                pathIdSelectionView.transform.position += vec;
+                bookInfoView.transform.position += vec;
+                shelfView.transform.position += vec;
+                completionView.transform.position += vec;
+                placementView.transform.position += vec;
+            }
+            //go back
+            else if (_bumperUp)
+            {
+                _bumperUp = false;
+                currentActiveView.SetActive(false);
+                pathIdSelectionView.SetActive(true);
+                currentActiveView = pathIdSelectionView;
+                // setup next selection
+                pathIdSelectionView.GetComponent<PathIdSelectionView>().setPhase(selectedPhase);
+            }
         }
     }
     private void userSelectionControl() {
@@ -159,21 +211,23 @@ public class NavigationController : MonoBehaviour {
 
         //if (Input.GetAxis("Vertical") == 1)
 
-        if (Input.GetKeyDown(KeyCode.B))
+        //if (Input.GetKeyDown(KeyCode.B))
+        if(_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
         {
 
             userSelectionView.GetComponent<UserSelectionView>().selectNext();
 
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+       // else if (Input.GetKeyDown(KeyCode.D))
+       else if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
         {
 
             userSelectionView.GetComponent<UserSelectionView>().selectLast();
 
         }
-        else if (Input.GetKeyDown(KeyCode.C))
+        //else if (Input.GetKeyDown(KeyCode.C))
+        else if (_controller.TriggerValue >= _triggerThreshold)
         {
-
             selectedUserId = userSelectionView.GetComponent<UserSelectionView>().getSelectedUserId();
             currentActiveView.SetActive(false);
             phaseSelectionView.SetActive(true);
@@ -187,15 +241,18 @@ public class NavigationController : MonoBehaviour {
 
     private void phaseSelectionControl()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        //if (Input.GetKeyDown(KeyCode.B))
+        if(_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
         {
             phaseSelectionView.GetComponent<PhaseSelectionView>().selectTesting();
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        //else if (Input.GetKeyDown(KeyCode.D))
+        else if(_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
         {
             phaseSelectionView.GetComponent<PhaseSelectionView>().selectTraining();
         }
-        else if (Input.GetKeyDown(KeyCode.C))
+        //else if (Input.GetKeyDown(KeyCode.C))
+        else if (_controller.TriggerValue >= _triggerThreshold)
         {
             selectedPhase = phaseSelectionView.GetComponent<PhaseSelectionView>().getSelectedPhase();
             currentActiveView.SetActive(false);
@@ -203,8 +260,10 @@ public class NavigationController : MonoBehaviour {
             currentActiveView = placementView;
         }
         //else if (Input.GetKeyDown(KeyCode.LeftArrow))
-        else if (Input.GetKeyDown(KeyCode.A))
+        //else if (Input.GetKeyDown(KeyCode.A))
+        else if (_bumperUp)
         {
+            _bumperUp = false;
             // go back to user selection
             currentActiveView.SetActive(false);
             userSelectionView.SetActive(true);
@@ -213,15 +272,18 @@ public class NavigationController : MonoBehaviour {
     }
 
     private void pathIdSelectionControl() {
-        if (Input.GetKeyDown(KeyCode.B))
+        //if (Input.GetKeyDown(KeyCode.B))
+        if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
         {
             pathIdSelectionView.GetComponent<PathIdSelectionView>().selectNext();
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        //else if (Input.GetKeyDown(KeyCode.D))
+        else if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
         {
             pathIdSelectionView.GetComponent<PathIdSelectionView>().selectLast();
         }
-        else if (Input.GetKeyDown(KeyCode.C))
+        //else if (Input.GetKeyDown(KeyCode.C))
+        else if (_controller.TriggerValue >= _triggerThreshold)
         {
             selectedPathId = pathIdSelectionView.GetComponent<PathIdSelectionView>().getSelectedPathId();
             
@@ -237,8 +299,10 @@ public class NavigationController : MonoBehaviour {
             }
             bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
         }
-        else if (Input.GetKeyDown(KeyCode.A))
+        //else if (Input.GetKeyDown(KeyCode.A))
+        else if (_bumperUp)
         {
+            _bumperUp = false;
             currentActiveView.SetActive(false);
             phaseSelectionView.SetActive(true);
             currentActiveView = phaseSelectionView;
@@ -248,7 +312,8 @@ public class NavigationController : MonoBehaviour {
     }
     private void bookInfoControl()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        //if (Input.GetKeyDown(KeyCode.B))
+        if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
         {
             if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
             {
@@ -256,7 +321,8 @@ public class NavigationController : MonoBehaviour {
                 bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
             }
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        //else if (Input.GetKeyDown(KeyCode.D))
+        else if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
         {
             if (selectedBookNum > 0)
             {
@@ -264,15 +330,18 @@ public class NavigationController : MonoBehaviour {
                 bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
             }
         }
-        else if (Input.GetKeyDown(KeyCode.A))
+        //else if (Input.GetKeyDown(KeyCode.A))
+        else if (_bumperUp)
         {
+            _bumperUp = false;
             // switch to shelf view
             currentActiveView.SetActive(false);
             shelfView.SetActive(true);
             currentActiveView = shelfView;
             shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
         }
-        else if (Input.GetKeyDown(KeyCode.C))
+        //else if (Input.GetKeyDown(KeyCode.C))
+        else if (_controller.TriggerValue >= _triggerThreshold)
         {
             // get the book, send server data
             if (!record_posted_book.ContainsKey(selectedBookNum))
@@ -307,7 +376,8 @@ public class NavigationController : MonoBehaviour {
     }
     private void completionControl()
     {
-        if (Input.anyKeyDown)
+        //if (Input.anyKeyDown)
+        if (_controller.TriggerValue >= _triggerThreshold)
         {
             selectedUserId = 0;
             selectedPhase = 0; // 0 indicates training, 1 indicates testing
@@ -322,7 +392,8 @@ public class NavigationController : MonoBehaviour {
     }
     private void shelfControl()
     {
-        if (Input.GetKeyDown(KeyCode.B))
+        //if (Input.GetKeyDown(KeyCode.B))
+        if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
         {
             if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
             {
@@ -330,7 +401,8 @@ public class NavigationController : MonoBehaviour {
                 shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
             }
         }
-        else if (Input.GetKeyDown(KeyCode.D))
+        //else if (Input.GetKeyDown(KeyCode.D))
+        else if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
         {
             if (selectedBookNum > 0)
             {
@@ -338,15 +410,18 @@ public class NavigationController : MonoBehaviour {
                 shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
             }
         }
-        else if (Input.GetKeyDown(KeyCode.A))
+        //else if (Input.GetKeyDown(KeyCode.A))
+        else if (_bumperUp)
         {
+            _bumperUp = false;
             // switch to book info view
             currentActiveView.SetActive(false);
             bookInfoView.SetActive(true);
             currentActiveView = bookInfoView;
             bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
         }
-        else if (Input.GetKeyDown(KeyCode.C))
+        //else if (Input.GetKeyDown(KeyCode.C))
+        else if (_controller.TriggerValue >= _triggerThreshold)
         {
             // get the book, send server data
             if (!record_posted_book.ContainsKey(selectedBookNum))
@@ -411,3 +486,8 @@ public class NavigationController : MonoBehaviour {
         }
     }
 }
+
+
+
+
+//Code e?
