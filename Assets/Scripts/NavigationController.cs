@@ -298,10 +298,12 @@ public class NavigationController : MonoBehaviour {
 
     private void setMode(OrderPickingMode newMode) {
         // Disable current
-        currentActiveView.SetActive(false);
-        GameObject newActiveView;
+        if (currentActiveView != null) {
+            currentActiveView.SetActive(false);
+        }
 
         // Determine new view
+        GameObject newActiveView;
         switch (newMode) {
             case OrderPickingMode.UserSelection:
                 newActiveView = userSelectionView;
