@@ -84,50 +84,12 @@ public class NavigationController : MonoBehaviour {
         _controller = MLInput.GetController(MLInput.Hand.Left);
         MLInput.OnControllerButtonUp += OnButtonUp;
         MLInput.OnControllerTouchpadGestureStart += OnGestureStart;
+        MLInput.OnTriggerDown += OnTriggerDown;
     }
 
     private void OnDestroy()
     {
         MLInput.Stop();
-    }
-
-    private bool checkTrigger()
-    {
-        if (_controller.TriggerValue < _triggerThreshold)
-        {
-            return false;
-        }
-        else
-        {
-            switch (currentMode) {
-                case OrderPickingMode.UserSelection:
-                    userSelectionTrigger();
-                    break;
-                case OrderPickingMode.PhaseSelection:
-                    phaseSelectionTrigger();
-                    break;
-                case OrderPickingMode.PathIdSelection:
-                    pathIdSelectionTrigger();
-                    break;
-                case OrderPickingMode.BookInfo:
-                    bookInfoTrigger();
-                    break;
-                case OrderPickingMode.Shelf:
-                    shelfTrigger();
-                    break;
-                case OrderPickingMode.Completion:
-                    completionTrigger();
-                    break;
-                case OrderPickingMode.Placement:
-                    placementSelectionTrigger();
-                    break;
-                default:
-                    // do nothing
-                    break;
-            }
-
-            return true;
-        }
     }
 
     //Bumper
@@ -161,6 +123,36 @@ public class NavigationController : MonoBehaviour {
                 break;
             case OrderPickingMode.Placement:
                 placementSelectionControl(touchpad_gesture);
+                break;
+            default:
+                // do nothing
+                break;
+        }
+    }
+
+    private void OnTriggerDown(byte controller_id, float intensity)
+    {
+        switch (currentMode) {
+            case OrderPickingMode.UserSelection:
+                userSelectionTrigger();
+                break;
+            case OrderPickingMode.PhaseSelection:
+                phaseSelectionTrigger();
+                break;
+            case OrderPickingMode.PathIdSelection:
+                pathIdSelectionTrigger();
+                break;
+            case OrderPickingMode.BookInfo:
+                bookInfoTrigger();
+                break;
+            case OrderPickingMode.Shelf:
+                shelfTrigger();
+                break;
+            case OrderPickingMode.Completion:
+                completionTrigger();
+                break;
+            case OrderPickingMode.Placement:
+                placementSelectionTrigger();
                 break;
             default:
                 // do nothing
@@ -531,7 +523,7 @@ public class NavigationController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        checkTrigger();
+        
     }
 }
 
