@@ -1,0 +1,9 @@
+<manifest xmlns:ml="magicleap" ml:developer_id="96980cc1-f3ac-4850-8bc7-24c5a454044a" ml:package="com.company.productname" ml:version_code="1" ml:version_name="">
+  <application ml:sdk_version="1.0" ml:visible_name="OrderPickingHoloLens">
+    <uses-privilege ml:name="LowLatencyLightwear" />
+    <uses-privilege ml:name="Internet" />
+    <component ml:binary_name="bin/Player.elf" ml:name=".fullscreen" ml:type="Fullscreen" ml:visible_name="OrderPickingHoloLens">
+      <icon ml:model_folder="Icon/Model" ml:portal_folder="Icon/Portal" />
+    </component>
+  </application>
+</manifest>

@@ -7,7 +7,7 @@ public class UserSelectionView : MonoBehaviour {
     // Use this for initialization
     private string []usernames;
     private int sliding_window_left = 0;
-    private int window_size = 6;
+    private int window_size = 12;
     private int selected_user_index = 0;
     private int character_width = 0;
     public void init() {

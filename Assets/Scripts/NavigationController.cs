@@ -193,10 +193,9 @@ public class NavigationController : MonoBehaviour {
                 completionView.transform.position += vec;
                 placementView.transform.position += vec;
             }
-            //go back
-            else if (_bumperUp)
+            
+            else if (_controller.TriggerValue >= _triggerThreshold)
             {
-                _bumperUp = false;
                 currentActiveView.SetActive(false);
                 pathIdSelectionView.SetActive(true);
                 currentActiveView = pathIdSelectionView;
