@@ -42,6 +42,18 @@ public class NavigationController : MonoBehaviour {
     // active view
     GameObject currentActiveView;
 
+    enum OrderPickingMode {
+        UserSelection,
+        PhaseSelection,
+        PathIdSelection,
+        BookInfo,
+        Shelf,
+        Completion,
+        Placement
+    }
+
+    private OrderPickingMode currentMode;
+
     // Use this for initialization
     void Start() {
         // data model init
@@ -49,7 +61,7 @@ public class NavigationController : MonoBehaviour {
         pr.setPathId(selectedPathId);
         record_posted_book = new Dictionary<int, string>();
         userSelectionView = GameObject.Find("User Selection View");
-        userSelectionView.SetActive(true);
+        userSelectionView.SetActive(false);
         phaseSelectionView = GameObject.Find("Phase Selection View");
         phaseSelectionView.SetActive(false);
         pathIdSelectionView = GameObject.Find("PathId Selection View");
@@ -61,10 +73,11 @@ public class NavigationController : MonoBehaviour {
         placementView = GameObject.Find("Placement Selection View");
         placementView.SetActive(false);
         shelfView.SetActive(false);
-
         completionView = GameObject.Find("Completion View");
         completionView.SetActive(false);
-        currentActiveView = userSelectionView;
+        
+        // Start with user selection
+        setMode(OrderPickingMode.UserSelection);
 
         //controller
         MLInput.Start();
@@ -196,9 +209,7 @@ public class NavigationController : MonoBehaviour {
 
             else if (_controller.TriggerValue >= _triggerThreshold)
             {
-                currentActiveView.SetActive(false);
-                pathIdSelectionView.SetActive(true);
-                currentActiveView = pathIdSelectionView;
+                setMode(OrderPickingMode.PathIdSelection);
                 // setup next selection
                 pathIdSelectionView.GetComponent<PathIdSelectionView>().setPhase(selectedPhase);
             }
@@ -225,13 +236,11 @@ public class NavigationController : MonoBehaviour {
         else if (_controller.TriggerValue >= _triggerThreshold)
         {
             selectedUserId = userSelectionView.GetComponent<UserSelectionView>().getSelectedUserId();
-            currentActiveView.SetActive(false);
-            phaseSelectionView.SetActive(true);
             // clear next selection
             selectedPhase = 0;
             phaseSelectionView.GetComponent<PhaseSelectionView>().setPhase(selectedPhase);
-            currentActiveView = phaseSelectionView;
             
+            setMode(OrderPickingMode.PhaseSelection);
         }
     }
 
@@ -251,19 +260,55 @@ public class NavigationController : MonoBehaviour {
         else if (_controller.TriggerValue >= _triggerThreshold)
         {
             selectedPhase = phaseSelectionView.GetComponent<PhaseSelectionView>().getSelectedPhase();
-            currentActiveView.SetActive(false);
-            placementView.SetActive(true);
-            currentActiveView = placementView;
+            setMode(OrderPickingMode.Placement);
         }
         //else if (Input.GetKeyDown(KeyCode.A))
         else if (_bumperUp)
         {
             _bumperUp = false;
             // go back to user selection
-            currentActiveView.SetActive(false);
-            userSelectionView.SetActive(true);
-            currentActiveView = userSelectionView;
+            setMode(OrderPickingMode.UserSelection);
         }
+    }
+
+    private void setMode(OrderPickingMode newMode) {
+        // Disable current
+        currentActiveView.SetActive(false);
+        GameObject newActiveView;
+
+        // Determine new view
+        switch (newMode) {
+            case OrderPickingMode.UserSelection:
+                newActiveView = userSelectionView;
+                break;
+            case OrderPickingMode.PhaseSelection:
+                newActiveView = phaseSelectionView;
+                break;
+            case OrderPickingMode.PathIdSelection:
+                newActiveView = pathIdSelectionView;
+                break;
+            case OrderPickingMode.BookInfo:
+                newActiveView = bookInfoView;
+                break;
+            case OrderPickingMode.Shelf:
+                newActiveView = shelfView;
+                break;
+            case OrderPickingMode.Completion:
+                newActiveView = completionView;
+                break;
+            case OrderPickingMode.Placement:
+                newActiveView = placementView;
+                break;
+            default:
+                // use current
+                newActiveView = currentActiveView;
+                break;
+        }
+
+        // Set new view
+        newActiveView.SetActive(true);
+        currentActiveView = newActiveView;
+        currentMode = newMode;
     }
 
     private void pathIdSelectionControl() {
@@ -282,9 +327,8 @@ public class NavigationController : MonoBehaviour {
         {
             selectedPathId = pathIdSelectionView.GetComponent<PathIdSelectionView>().getSelectedPathId();
             
-            currentActiveView.SetActive(false);
-            bookInfoView.SetActive(true);
-            currentActiveView = bookInfoView;
+            setMode(OrderPickingMode.BookInfo);
+
             // setup the next view
             if (selectedPathId != pr.getPathId())
             {
@@ -298,9 +342,7 @@ public class NavigationController : MonoBehaviour {
         else if (_bumperUp)
         {
             _bumperUp = false;
-            currentActiveView.SetActive(false);
-            phaseSelectionView.SetActive(true);
-            currentActiveView = phaseSelectionView;
+            setMode(OrderPickingMode.PhaseSelection);
 
         }
 
@@ -330,9 +372,7 @@ public class NavigationController : MonoBehaviour {
         {
             _bumperUp = false;
             // switch to shelf view
-            currentActiveView.SetActive(false);
-            shelfView.SetActive(true);
-            currentActiveView = shelfView;
+            setMode(OrderPickingMode.Shelf);
             shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
         }
         //else if (Input.GetKeyDown(KeyCode.C))
@@ -354,9 +394,7 @@ public class NavigationController : MonoBehaviour {
             if (record_posted_book.Count >= pr.getNumberOfBooksInPath())
             {
                 // go to next, or notify completion.
-                currentActiveView.SetActive(false);
-                completionView.SetActive(true);
-                currentActiveView = completionView;
+                setMode(OrderPickingMode.Completion);
             }
             else
             {
@@ -364,9 +402,7 @@ public class NavigationController : MonoBehaviour {
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            currentActiveView.SetActive(false);
-            pathIdSelectionView.SetActive(true);
-            currentActiveView = pathIdSelectionView;
+            setMode(OrderPickingMode.PathIdSelection);
         }
     }
     private void completionControl()
@@ -380,9 +416,7 @@ public class NavigationController : MonoBehaviour {
             selectedBookNum = 0;
             selectedBookTag = "";
             record_posted_book.Clear();
-            currentActiveView.SetActive(false);
-            userSelectionView.SetActive(true);
-            currentActiveView = userSelectionView;
+            setMode(OrderPickingMode.UserSelection);
         }
     }
     private void shelfControl()
@@ -410,9 +444,7 @@ public class NavigationController : MonoBehaviour {
         {
             _bumperUp = false;
             // switch to book info view
-            currentActiveView.SetActive(false);
-            bookInfoView.SetActive(true);
-            currentActiveView = bookInfoView;
+            setMode(OrderPickingMode.BookInfo);
             bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
         }
         //else if (Input.GetKeyDown(KeyCode.C))
@@ -433,9 +465,7 @@ public class NavigationController : MonoBehaviour {
             if (record_posted_book.Count >= pr.getNumberOfBooksInPath())
             {
                 // go to next, or notify completion.
-                currentActiveView.SetActive(false);
-                completionView.SetActive(true);
-                currentActiveView = completionView;
+                setMode(OrderPickingMode.Completion);
             }
             else
             {
@@ -443,9 +473,7 @@ public class NavigationController : MonoBehaviour {
         }
         else if (Input.GetKeyDown(KeyCode.E))
         {
-            currentActiveView.SetActive(false);
-            pathIdSelectionView.SetActive(true);
-            currentActiveView = pathIdSelectionView;
+            setMode(OrderPickingMode.PathIdSelection);
         }
     }
     // Update is called once per frame
