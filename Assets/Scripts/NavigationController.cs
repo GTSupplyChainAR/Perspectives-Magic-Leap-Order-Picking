@@ -83,7 +83,7 @@ public class NavigationController : MonoBehaviour {
         MLInput.Start();
         _controller = MLInput.GetController(MLInput.Hand.Left);
         MLInput.OnControllerButtonUp += OnButtonUp;
-        MLInput.OnControllerTouchpadGestureEnd += OnGestureEnd;
+        MLInput.OnControllerTouchpadGestureStart += OnGestureStart;
     }
 
     private void OnDestroy()
@@ -112,7 +112,7 @@ public class NavigationController : MonoBehaviour {
         }
     }
 
-    void OnGestureEnd(byte controller_id, MLInputControllerTouchpadGesture touchpad_gesture) {
+    void OnGestureStart(byte controller_id, MLInputControllerTouchpadGesture touchpad_gesture) {
         switch (currentMode) {
             case OrderPickingMode.UserSelection:
                 userSelectionControl(touchpad_gesture);
