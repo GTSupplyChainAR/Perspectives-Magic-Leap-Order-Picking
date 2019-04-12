@@ -99,6 +99,33 @@ public class NavigationController : MonoBehaviour {
         }
         else
         {
+            switch (currentMode) {
+                case OrderPickingMode.UserSelection:
+                    userSelectionTrigger();
+                    break;
+                case OrderPickingMode.PhaseSelection:
+                    phaseSelectionTrigger();
+                    break;
+                case OrderPickingMode.PathIdSelection:
+                    pathIdSelectionTrigger();
+                    break;
+                case OrderPickingMode.BookInfo:
+                    bookInfoTrigger();
+                    break;
+                case OrderPickingMode.Shelf:
+                    shelfTrigger();
+                    break;
+                case OrderPickingMode.Completion:
+                    completionTrigger();
+                    break;
+                case OrderPickingMode.Placement:
+                    placementSelectionTrigger();
+                    break;
+                default:
+                    // do nothing
+                    break;
+            }
+
             return true;
         }
     }
@@ -231,15 +258,15 @@ public class NavigationController : MonoBehaviour {
                 completionView.transform.position += vec;
                 placementView.transform.position += vec;
             }
-
-            else if (_controller.TriggerValue >= _triggerThreshold)
-            {
-                setMode(OrderPickingMode.PathIdSelection);
-                // setup next selection
-                pathIdSelectionView.GetComponent<PathIdSelectionView>().setPhase(selectedPhase);
-            }
         }
     }
+
+    private void placementSelectionTrigger() {
+        setMode(OrderPickingMode.PathIdSelection);
+        // setup next selection
+        pathIdSelectionView.GetComponent<PathIdSelectionView>().setPhase(selectedPhase);
+    }
+
     private void userSelectionControl(MLInputControllerTouchpadGesture touchpad_gesture) {
         //Debug.Log("V " + Input.GetAxis("Vertical"));
         //Debug.Log("H " + Input.GetAxis("Horizontal"));
@@ -257,16 +284,15 @@ public class NavigationController : MonoBehaviour {
         {
             userSelectionView.GetComponent<UserSelectionView>().selectLast();
         }
+    }
 
-        else if (_controller.TriggerValue >= _triggerThreshold)
-        {
-            selectedUserId = userSelectionView.GetComponent<UserSelectionView>().getSelectedUserId();
-            // clear next selection
-            selectedPhase = 0;
-            phaseSelectionView.GetComponent<PhaseSelectionView>().setPhase(selectedPhase);
-            
-            setMode(OrderPickingMode.PhaseSelection);
-        }
+    private void userSelectionTrigger() {
+        selectedUserId = userSelectionView.GetComponent<UserSelectionView>().getSelectedUserId();
+        // clear next selection
+        selectedPhase = 0;
+        phaseSelectionView.GetComponent<PhaseSelectionView>().setPhase(selectedPhase);
+        
+        setMode(OrderPickingMode.PhaseSelection);
     }
 
     private void phaseSelectionControl(MLInputControllerTouchpadGesture touchpad_gesture)
@@ -281,8 +307,10 @@ public class NavigationController : MonoBehaviour {
         {
             phaseSelectionView.GetComponent<PhaseSelectionView>().selectTraining();
         }
-        //else if (Input.GetKeyDown(KeyCode.C))
-        else if (_controller.TriggerValue >= _triggerThreshold)
+    }
+
+    private void phaseSelectionTrigger() {
+        if (_controller.TriggerValue >= _triggerThreshold)
         {
             selectedPhase = phaseSelectionView.GetComponent<PhaseSelectionView>().getSelectedPhase();
             setMode(OrderPickingMode.Placement);
@@ -349,8 +377,10 @@ public class NavigationController : MonoBehaviour {
         {
             pathIdSelectionView.GetComponent<PathIdSelectionView>().selectLast();
         }
-        //else if (Input.GetKeyDown(KeyCode.C))
-        else if (_controller.TriggerValue >= _triggerThreshold)
+    }
+
+    private void pathIdSelectionTrigger() {
+        if (_controller.TriggerValue >= _triggerThreshold)
         {
             selectedPathId = pathIdSelectionView.GetComponent<PathIdSelectionView>().getSelectedPathId();
             
@@ -372,8 +402,8 @@ public class NavigationController : MonoBehaviour {
             setMode(OrderPickingMode.PhaseSelection);
 
         }
-
     }
+
     private void bookInfoControl(MLInputControllerTouchpadGesture touchpad_gesture)
     {
         //if (Input.GetKeyDown(KeyCode.B))
@@ -403,49 +433,48 @@ public class NavigationController : MonoBehaviour {
             shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
         }
         //else if (Input.GetKeyDown(KeyCode.C))
-        else if (_controller.TriggerValue >= _triggerThreshold)
-        {
-            // get the book, send server data
-            if (!record_posted_book.ContainsKey(selectedBookNum))
-            {
-                selectedBookTag = pr.getBookWithLocation(selectedBookNum).book.tag;
-                //Debug.Log(selectedBookTag + " " + (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
-                postdata();
-                record_posted_book.Add(selectedBookNum, "pick");
-            }
-            if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
-            {
-                selectedBookNum++;
-                bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
-            }
-            if (record_posted_book.Count >= pr.getNumberOfBooksInPath())
-            {
-                // go to next, or notify completion.
-                setMode(OrderPickingMode.Completion);
-            }
-            else
-            {
-            }
-        }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             setMode(OrderPickingMode.PathIdSelection);
         }
     }
-    private void completionControl(MLInputControllerTouchpadGesture touchpad_gesture)
-    {
-        //if (Input.anyKeyDown)
-        if (_controller.TriggerValue >= _triggerThreshold)
+
+    private void bookInfoTrigger() {
+        // get the book, send server data
+        if (!record_posted_book.ContainsKey(selectedBookNum))
         {
-            selectedUserId = 0;
-            selectedPhase = 0; // 0 indicates training, 1 indicates testing
-            selectedPathId = 1;
-            selectedBookNum = 0;
-            selectedBookTag = "";
-            record_posted_book.Clear();
-            setMode(OrderPickingMode.UserSelection);
+            selectedBookTag = pr.getBookWithLocation(selectedBookNum).book.tag;
+            //Debug.Log(selectedBookTag + " " + (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
+            postdata();
+            record_posted_book.Add(selectedBookNum, "pick");
+        }
+        if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
+        {
+            selectedBookNum++;
+            bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
+        }
+        if (record_posted_book.Count >= pr.getNumberOfBooksInPath())
+        {
+            // go to next, or notify completion.
+            setMode(OrderPickingMode.Completion);
         }
     }
+
+    private void completionControl(MLInputControllerTouchpadGesture touchpad_gesture)
+    {
+
+    }
+
+    private void completionTrigger() {
+        selectedUserId = 0;
+        selectedPhase = 0; // 0 indicates training, 1 indicates testing
+        selectedPathId = 1;
+        selectedBookNum = 0;
+        selectedBookTag = "";
+        record_posted_book.Clear();
+        setMode(OrderPickingMode.UserSelection);
+    }
+
     private void shelfControl(MLInputControllerTouchpadGesture touchpad_gesture)
     {
         //if (Input.GetKeyDown(KeyCode.B))
@@ -474,38 +503,35 @@ public class NavigationController : MonoBehaviour {
             setMode(OrderPickingMode.BookInfo);
             bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
         }
-        //else if (Input.GetKeyDown(KeyCode.C))
-        else if (_controller.TriggerValue >= _triggerThreshold)
-        {
-            // get the book, send server data
-            if (!record_posted_book.ContainsKey(selectedBookNum))
-            {
-                selectedBookTag = pr.getBookWithLocation(selectedBookNum).book.tag;
-                postdata();
-                record_posted_book.Add(selectedBookNum, "pick");
-            }
-            if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
-            {
-                selectedBookNum++;
-                bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
-            }
-            if (record_posted_book.Count >= pr.getNumberOfBooksInPath())
-            {
-                // go to next, or notify completion.
-                setMode(OrderPickingMode.Completion);
-            }
-            else
-            {
-            }
-        }
         else if (Input.GetKeyDown(KeyCode.E))
         {
             setMode(OrderPickingMode.PathIdSelection);
         }
     }
+
+    private void shelfTrigger() {
+        // get the book, send server data
+        if (!record_posted_book.ContainsKey(selectedBookNum))
+        {
+            selectedBookTag = pr.getBookWithLocation(selectedBookNum).book.tag;
+            postdata();
+            record_posted_book.Add(selectedBookNum, "pick");
+        }
+        if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
+        {
+            selectedBookNum++;
+            bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
+        }
+        if (record_posted_book.Count >= pr.getNumberOfBooksInPath())
+        {
+            // go to next, or notify completion.
+            setMode(OrderPickingMode.Completion);
+        }
+    }
+
     // Update is called once per frame
     void Update () {
-        
+        checkTrigger();
     }
 }
 
