@@ -22,7 +22,7 @@ public class NavigationController : MonoBehaviour {
     private int selectedPathId = 1;
     private int selectedBookNum = 0;
     private string selectedBookTag = "";
-   
+
     private Dictionary<int, string> record_posted_book;
     private PathReader pr;
     private const string url = "https://eyegaze4605api.herokuapp.com/api/userData";
@@ -43,7 +43,7 @@ public class NavigationController : MonoBehaviour {
     GameObject currentActiveView;
 
     // Use this for initialization
-    void Start () {
+    void Start() {
         // data model init
         pr = new PathReader(Path.Combine(Application.streamingAssetsPath, "pick-paths.json"));
         pr.setPathId(selectedPathId);
@@ -61,7 +61,7 @@ public class NavigationController : MonoBehaviour {
         placementView = GameObject.Find("Placement Selection View");
         placementView.SetActive(false);
         shelfView.SetActive(false);
-        
+
         completionView = GameObject.Find("Completion View");
         completionView.SetActive(false);
         currentActiveView = userSelectionView;
@@ -143,10 +143,10 @@ public class NavigationController : MonoBehaviour {
         {
             //Down
             //if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
-            if(_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
+            if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Right)
             {
                 Vector3 vec = new Vector3(0.01f, 0, 0);
-                userSelectionView.transform.position += vec;
+                //userSelectionView.transform.position += vec;
                 phaseSelectionView.transform.position += vec;
                 pathIdSelectionView.transform.position += vec;
                 bookInfoView.transform.position += vec;
@@ -156,10 +156,10 @@ public class NavigationController : MonoBehaviour {
             }
             //Left
             //else if (Input.GetKey(KeyCode.Numlock))
-            else if(_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Left)
+            else if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Left)
             {
                 Vector3 vec = new Vector3(-0.01f, 0, 0);
-                userSelectionView.transform.position += vec;
+                //userSelectionView.transform.position += vec;
                 phaseSelectionView.transform.position += vec;
                 pathIdSelectionView.transform.position += vec;
                 bookInfoView.transform.position += vec;
@@ -172,7 +172,7 @@ public class NavigationController : MonoBehaviour {
             else if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
             {
                 Vector3 vec = new Vector3(0, 0.01f, 0);
-                userSelectionView.transform.position += vec;
+                //userSelectionView.transform.position += vec;
                 phaseSelectionView.transform.position += vec;
                 pathIdSelectionView.transform.position += vec;
                 bookInfoView.transform.position += vec;
@@ -182,10 +182,10 @@ public class NavigationController : MonoBehaviour {
             }
             //Right
             //else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
-            else if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Right)
+            else if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
             {
                 Vector3 vec = new Vector3(0, -0.01f, 0);
-                userSelectionView.transform.position += vec;
+                //userSelectionView.transform.position += vec;
                 phaseSelectionView.transform.position += vec;
                 pathIdSelectionView.transform.position += vec;
                 bookInfoView.transform.position += vec;
@@ -193,7 +193,7 @@ public class NavigationController : MonoBehaviour {
                 completionView.transform.position += vec;
                 placementView.transform.position += vec;
             }
-            
+
             else if (_controller.TriggerValue >= _triggerThreshold)
             {
                 currentActiveView.SetActive(false);
@@ -211,20 +211,17 @@ public class NavigationController : MonoBehaviour {
         //if (Input.GetAxis("Vertical") == 1)
 
         //if (Input.GetKeyDown(KeyCode.B))
-        if(_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
+        if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
         {
-
             userSelectionView.GetComponent<UserSelectionView>().selectNext();
 
         }
-       // else if (Input.GetKeyDown(KeyCode.D))
-       else if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
+
+        else if (_controller.TouchpadGesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
         {
-
             userSelectionView.GetComponent<UserSelectionView>().selectLast();
-
         }
-        //else if (Input.GetKeyDown(KeyCode.C))
+
         else if (_controller.TriggerValue >= _triggerThreshold)
         {
             selectedUserId = userSelectionView.GetComponent<UserSelectionView>().getSelectedUserId();
@@ -258,7 +255,6 @@ public class NavigationController : MonoBehaviour {
             placementView.SetActive(true);
             currentActiveView = placementView;
         }
-        //else if (Input.GetKeyDown(KeyCode.LeftArrow))
         //else if (Input.GetKeyDown(KeyCode.A))
         else if (_bumperUp)
         {

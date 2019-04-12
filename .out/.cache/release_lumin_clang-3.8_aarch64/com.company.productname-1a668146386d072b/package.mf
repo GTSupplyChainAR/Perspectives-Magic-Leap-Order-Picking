@@ -107,16 +107,16 @@
   },
   {
    "compression": 8,
-   "hash": "37f094abf17580fe60a9f78b54f56e809c38df05",
+   "hash": "58f08bc078f85cf6ac2b31a72bb666bc7ac4d80a",
    "pkgpath": "Data/Managed/Metadata/global-metadata.dat",
-   "size": 2930272,
+   "size": 2930288,
    "src": "C:/Users/georg/Desktop/Perspectives-Magic-Leap-Order-Picking/Temp/StagingArea/Data/Managed/Metadata/global-metadata.dat"
   },
   {
    "compression": 8,
-   "hash": "61882ca4e80643b2799fdf081f8fb4602cb29a1c",
+   "hash": "498b5f4da2043a0c19364461a57c4929768d49b4",
    "pkgpath": "bin/libil2cpp.so",
-   "size": 37496024,
+   "size": 37495808,
    "src": "C:/Users/georg/Desktop/Perspectives-Magic-Leap-Order-Picking/Temp/StagingArea/Data/Native/libil2cpp.so",
    "xfrm_flags": {
     "signed": {
@@ -127,9 +127,9 @@
      "version": 3
     }
    },
-   "xfrm_hash": "649e7cc5d378584a6fecebce93b5232bebd59a1e",
+   "xfrm_hash": "ff5347a55f2835f92d76b12b6caaa6fd8a9a5395",
    "xfrm_path": "C:/Users/georg/Desktop/Perspectives-Magic-Leap-Order-Picking/.out/.cache/release_lumin_clang-3.8_aarch64/com.company.productname-1a668146386d072b\\libil2cpp.so-0baa456df726bdb3",
-   "xfrm_size": 37496782
+   "xfrm_size": 37496566
   },
   {
    "compression": 8,
@@ -251,9 +251,9 @@
   },
   {
    "compression": 8,
-   "hash": "0d97f5106f2b893fc3880fb9af7c5e5e81843fd5",
+   "hash": "c2efb206ea3fb92243bb72c4cf83612696f2857f",
    "pkgpath": "Data/StreamingAssets/pick-paths.json",
-   "size": 914917,
+   "size": 438644,
    "src": "C:/Users/georg/Desktop/Perspectives-Magic-Leap-Order-Picking/Temp/StagingArea/Data/StreamingAssets/pick-paths.json"
   },
   {
@@ -412,7 +412,7 @@
   },
   {
    "compression": 8,
-   "hash": "ed9e9c4fc147dbbe8a5ef90648dacf20cb223d01",
+   "hash": "97f5f0ba16e2cb846b363478a5aa11cd2cdf56f6",
    "pkgpath": "Data/globalgamemanagers",
    "size": 37300,
    "src": "C:/Users/georg/Desktop/Perspectives-Magic-Leap-Order-Picking/Temp/StagingArea/Data/globalgamemanagers"
@@ -426,9 +426,9 @@
   },
   {
    "compression": 8,
-   "hash": "ce6b547728bd0f94bff09ed7d55aca4448947e11",
+   "hash": "e7991122594a657b1f445485f0a24d898c751ff7",
    "pkgpath": "Data/level0",
-   "size": 36616,
+   "size": 37568,
    "src": "C:/Users/georg/Desktop/Perspectives-Magic-Leap-Order-Picking/Temp/StagingArea/Data/level0"
   },
   {

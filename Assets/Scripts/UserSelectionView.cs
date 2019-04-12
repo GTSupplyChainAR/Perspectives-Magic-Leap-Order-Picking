@@ -32,6 +32,7 @@ public class UserSelectionView : MonoBehaviour {
         }
         return result;
     }
+
     private void refreshView() {
         int count = 0;
         for (int i = sliding_window_left; i - sliding_window_left < window_size && i < usernames.Length; i++) {
@@ -44,6 +45,7 @@ public class UserSelectionView : MonoBehaviour {
             count++;
         }
     }
+
     public void selectNext() {
         // 1. add 1 to selected_user_index
         // 2. check if need to moving the sliding window
@@ -61,6 +63,7 @@ public class UserSelectionView : MonoBehaviour {
             return;
         }
         selected_user_index--;
+        Debug.Log(selected_user_index);
         if (selected_user_index < sliding_window_left) {
             sliding_window_left = selected_user_index;
         }
