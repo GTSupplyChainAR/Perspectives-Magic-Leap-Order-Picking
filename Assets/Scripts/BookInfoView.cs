@@ -20,13 +20,12 @@ public class BookInfoView : MonoBehaviour
     // Use this for initialization
     public void init() {
         row = new Dictionary<string, int>();
-        row.Add("A", 0);
-        row.Add("B", 1);
-        row.Add("C", 2);
-        row.Add("D", 3);
-        row.Add("E", 4);
-        row.Add("F", 5);
-        row.Add("G", 6);
+        row.Add("1", 0);
+        row.Add("2", 1);
+        row.Add("3", 2);
+        row.Add("4", 3);
+        row.Add("5", 4);
+        Debug.Log("adding...");
         highlight_row = -1;
         bookText = GameObject.Find("Book Text");
     }
@@ -57,15 +56,15 @@ public class BookInfoView : MonoBehaviour
 
         //Highlight new block
         string[] loc = tag.Split('-');
-        highlight_row = row[loc[3]];
+        highlight_row = row[loc[2]];
         objectID = "row_" + highlight_row + "_block";
         Sprite redBlock = Resources.Load<Sprite>("red_block");
         GameObject.Find(objectID).GetComponent<SpriteRenderer>().sprite = redBlock;
-        GameObject.Find("shelf_number_text").GetComponent<TextMesh>().text = loc[3];
+        GameObject.Find("shelf_number_text").GetComponent<TextMesh>().text = loc[2];
     }
  
 
-    void Start()
+    void Awake()
     {
         init();
     }

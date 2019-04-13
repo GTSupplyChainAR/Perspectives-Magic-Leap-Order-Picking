@@ -49,7 +49,7 @@ public class ShelfView : MonoBehaviour
     }
     private void updateAisle(string text)
     {
-        GameObject.Find("aisle_text").GetComponent<TextMesh>().text = text;
+        //GameObject.Find("aisle_text").GetComponent<TextMesh>().text = text;
     }
     private void updateColoumTexts(string[] col_texts)
     {
@@ -83,10 +83,10 @@ public class ShelfView : MonoBehaviour
     {
         string tag = bookInfo.book.tag;
         string[] loc = tag.Split('-');
-        //Debug.Log(row);
-        int row_id = row[loc[3]];
-        int col_id = column[loc[2]];
-        string aisle = loc[1];
+        
+        int row_id = row[loc[0]];
+        int col_id = column[loc[1]];
+        string aisle = loc[0];
         
             highlightBlock(row_id, col_id);
             updateColoumTexts(new string[] { "1", "2", "3" });
