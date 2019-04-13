@@ -57,7 +57,7 @@ public class NavigationController : MonoBehaviour {
     void Start() {
         // data model init
         pr = new PathReader(Path.Combine(Application.streamingAssetsPath, "pick-paths.json"));
-        pr.setPathId(selectedPathId);
+        pr.setPathId(selectedUserId, selectedPathId, selectedPhase);
         record_posted_book = new Dictionary<int, string>();
         userSelectionView = GameObject.Find("User Selection View");
         userSelectionView.SetActive(false);
@@ -407,7 +407,7 @@ public class NavigationController : MonoBehaviour {
         // setup the next view
         if (selectedPathId != pr.getPathId())
         {
-            pr.setPathId(selectedPathId);
+            pr.setPathId(selectedUserId, selectedPathId, selectedPhase);
             selectedBookNum = 0;
             record_posted_book.Clear();
         }

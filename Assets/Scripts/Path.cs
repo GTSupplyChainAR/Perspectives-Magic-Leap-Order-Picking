@@ -1,12 +1,12 @@
-﻿using System.IO;
+﻿/*using System.IO;
 using UnityEngine;
 using System;
-public class PathReader
+public class PathReader1
 {
     private PickPaths paths;
     private PickPath[] patharr;
     private int pathId;
-    private PickPath currentPath;
+    private PickPath currentPath;*/
     /*public PathReader(PickPaths paths) {
         if (this.paths == null) {
             throw new NullReferenceException("PickPaths cannot be set null");
@@ -14,7 +14,7 @@ public class PathReader
         this.paths = paths;
         patharr = paths.pickPaths;
     }*/
-    public PathReader(string filePath) {
+    /*public PathReader1(string filePath) {
         if (File.Exists(filePath))
         {
             string dataAsJSON = File.ReadAllText(filePath);
@@ -150,5 +150,5 @@ public class Book
     }
 
 }
-
+*/
 

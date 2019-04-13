@@ -28,7 +28,7 @@ public class JSON : MonoBehaviour {
             Debug.Log(e.Message);
             return false;
         }
-        pr.setPathId(2);
+        pr.setPathId(0, 0, 2);
         pr.printBookWithLocation(pr.getBookWithLocation(2));
         return true;
 
