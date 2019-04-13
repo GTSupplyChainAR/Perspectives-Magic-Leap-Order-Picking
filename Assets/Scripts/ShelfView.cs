@@ -16,7 +16,8 @@ public class ShelfView : MonoBehaviour
         "yellow_block",
         "green_block",
         "blue_block",
-        "purple_block"
+        "purple_block",
+        "sunset_block"
     };
     string[] empty_block_names = new string[] {
         "red_empty_block",
@@ -24,7 +25,9 @@ public class ShelfView : MonoBehaviour
         "yellow_empty_block",
         "green_empty_block",
         "blue_empty_block",
-        "purple_empty_block"
+        "purple_empty_block",
+        "sunset_empty_block"
+
     };
     public void init()
     {
