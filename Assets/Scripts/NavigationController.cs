@@ -81,7 +81,7 @@ public class NavigationController : MonoBehaviour {
         //controller
         MLInput.Start();
         _controller = MLInput.GetController(MLInput.Hand.Right);
-        MLInput.OnControllerButtonUp += OnButtonUp;
+        MLInput.OnControllerButtonDown += OnButtonDown;
         MLInput.OnControllerTouchpadGestureStart += OnGestureStart;
         MLInput.OnTriggerDown += OnTriggerDown;
     }
@@ -92,7 +92,7 @@ public class NavigationController : MonoBehaviour {
     }
 
     //Bumper
-    void OnButtonUp(byte controller_id, MLInputControllerButton button)
+    void OnButtonDown(byte controller_id, MLInputControllerButton button)
     {
         if (button == MLInputControllerButton.Bumper)
         {
