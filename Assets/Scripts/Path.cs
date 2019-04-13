@@ -19,7 +19,6 @@ public class PathReader
         {
             string dataAsJSON = File.ReadAllText(filePath);
             paths = JsonUtility.FromJson<PickPaths>(dataAsJSON);
-            Debug.Log(paths);
             patharr = paths.pickPaths;
         }
         else
@@ -81,16 +80,16 @@ public class PickPath {
 [System.Serializable]
 public class PickPathInformation {
     public BookWithLocation[] unorderedBooksAndLocations;
-    public OrderedPickPath[] orderedPickPath;
     public BookWithLocation[] orderedBooksAndLocations;
+    public OrderedPickPath[] orderedPickPath;
 }
 
 [System.Serializable]
 public class OrderedPickPath
 {
+    public int stepNumber;
     public int[][] cellByCellPathToTargetBookLocation;
     public BookWithLocation targetBookAndTargetBookLocation;
-    public int stepNumber;
 }
 
 [System.Serializable]
@@ -103,8 +102,8 @@ public class BookWithLocation
 [System.Serializable]
 public class Book
 {
-    public string author;
     public string title;
+    public string author;
     public string tag;
 
 }
