@@ -419,29 +419,7 @@ public class NavigationController : MonoBehaviour {
 
     private void bookInfoControl(MLInputControllerTouchpadGesture touchpad_gesture)
     {
-        //if (Input.GetKeyDown(KeyCode.B))
-        if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
-        {
-            if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
-            {
-                selectedBookNum++;
-                bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
-            }
-        }
-        //else if (Input.GetKeyDown(KeyCode.D))
-        else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
-        {
-            if (selectedBookNum > 0)
-            {
-                selectedBookNum--;
-                bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
-            }
-        }
-        //else if (Input.GetKeyDown(KeyCode.C))
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            setMode(OrderPickingMode.PathIdSelection);
-        }
+        // unused
     }
 
     private void bookInfoTrigger() {
@@ -492,24 +470,7 @@ public class NavigationController : MonoBehaviour {
 
     private void shelfControl(MLInputControllerTouchpadGesture touchpad_gesture)
     {
-        //if (Input.GetKeyDown(KeyCode.B))
-        if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
-        {
-            if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
-            {
-                selectedBookNum++;
-                shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
-            }
-        }
-        //else if (Input.GetKeyDown(KeyCode.D))
-        else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
-        {
-            if (selectedBookNum > 0)
-            {
-                selectedBookNum--;
-                shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
-            }
-        }
+        // unused
     }
 
     private void shelfTrigger() {
