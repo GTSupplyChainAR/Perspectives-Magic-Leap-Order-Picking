@@ -36,7 +36,13 @@ public class Participants
     public Participant[] participants;
 
     public override string ToString() {
-        return "boi";
+        string str = "Participant[]: [\n";
+        foreach (Participant p in participants) {
+            str += p.ToString() + "\n";
+        }
+        str += "]";
+
+        return str;
     }
 }
 
@@ -48,10 +54,22 @@ public class Participant
     public TestingPathOrder[] testingPathOrder;
     
     public override string ToString() {
+        string trainStr = "trainingPathOrder[]: [\n";
+        foreach (TrainingPathOrder t in trainingPathOrder) {
+            trainStr += t.ToString() + "\n";
+        }
+        trainStr += "]";
+
+        string testingStr = "testingPathOrder[]: [\n";
+        foreach (TestingPathOrder t in testingPathOrder) {
+            testingStr += t.ToString() + "\n";
+        }
+        testingStr += "]";
+
         return "Participant: {\n"
             + "ID = " + participantId.ToString() + "\n"
-            + "trainingPathOrder = " + trainingPathOrder.ToString() + "\n"
-            + "testingPathOrder = " + testingPathOrder.ToString()
+            + "trainingPathOrder = " + trainStr + "\n"
+            + "testingPathOrder = " + testingStr
             + "}";
     }
 }
@@ -60,12 +78,18 @@ public class Participant
 public class TrainingPathOrder
 {
     public string position;
-    public PathIds[] pathIds;
+    public int[] pathIds;
 
     public override string ToString() {
+        string pathIdStr = "pathIds[]: [\n";
+        foreach (int p in pathIds) {
+            pathIdStr += p.ToString() + "\n";
+        }
+        pathIdStr += "]";
+
         return "TrainingPathOrder: {\n"
             + "position = " + position + "\n"
-            + "pathIds = " + pathIds.ToString()
+            + "pathIds = " + pathIdStr + "\n"
             + "}";
     }
 }
@@ -74,12 +98,18 @@ public class TrainingPathOrder
 public class TestingPathOrder
 {
     public string position;
-    public PathIds[] pathIds;
+    public int[] pathIds;
 
     public override string ToString() {
+        string pathIdStr = "pathIds[]: [\n";
+        foreach (int p in pathIds) {
+            pathIdStr += p.ToString() + "\n";
+        }
+        pathIdStr += "]";
+
         return "TestingPathOrder: {\n"
             + "position = " + position + "\n"
-            + "pathIds = " + pathIds.ToString()
+            + "pathIds = " + pathIdStr
             + "}";
     }
 }
