@@ -97,6 +97,7 @@ public class NavigationController : MonoBehaviour {
         if (button == MLInputControllerButton.Bumper)
         {
             OnBumper();
+            Debug.Log("-- ON BUMPER --");
         }
     }
 
@@ -431,6 +432,11 @@ public class NavigationController : MonoBehaviour {
             postdata();
             record_posted_book.Add(selectedBookNum, "pick");
         }
+        if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
+        {
+            selectedBookNum++;
+            bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
+        }
         if (record_posted_book.Count >= pr.getNumberOfBooksInPath())
         {
             // go to next, or notify completion.
@@ -438,13 +444,10 @@ public class NavigationController : MonoBehaviour {
         }
     }
 
-
     private void bookInfoBumper() {
         // switch to shelf view
         setMode(OrderPickingMode.Shelf);
         shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
-
-
     }
 
     private void completionControl(MLInputControllerTouchpadGesture touchpad_gesture)
@@ -479,10 +482,20 @@ public class NavigationController : MonoBehaviour {
             postdata();
             record_posted_book.Add(selectedBookNum, "pick");
         }
+        if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
+        {
+            selectedBookNum++;
+            bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
+        }
         if (record_posted_book.Count >= pr.getNumberOfBooksInPath())
         {
             // go to next, or notify completion.
             setMode(OrderPickingMode.Completion);
+        }
+
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            setMode(OrderPickingMode.PathIdSelection);
         }
     }
 
