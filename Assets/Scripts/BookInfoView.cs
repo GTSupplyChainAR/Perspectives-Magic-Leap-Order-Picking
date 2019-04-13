@@ -9,7 +9,7 @@ public class BookInfoView : MonoBehaviour
 
     private GameObject bookText;
     private GameObject book;
-    private int maxLineChars = 5;
+    private int maxLineChars = 10;
     private String[] words;
     String result = "";
     private int charCount;
