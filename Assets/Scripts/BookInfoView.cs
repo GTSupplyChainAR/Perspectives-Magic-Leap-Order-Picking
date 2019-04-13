@@ -65,7 +65,7 @@ public class BookInfoView : MonoBehaviour
         5 -> 1
         */
         int val = int.Parse(loc[2]);
-        //val = Math.Abs(val - 5) + 1;
+        val = Math.Abs(val - 5) + 1;
         loc[2] = val.ToString();
 
         highlight_row = row[loc[2]];

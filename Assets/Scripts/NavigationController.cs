@@ -233,9 +233,9 @@ public class NavigationController : MonoBehaviour {
         {
             //Down
             //if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
-            if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Right)
+            if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Left)
             {
-                Vector3 vec = new Vector3(0.01f, 0, 0);
+                Vector3 vec = new Vector3(0.1f, 0, 0);
                 userSelectionView.transform.position += vec;
                 phaseSelectionView.transform.position += vec;
                 pathIdSelectionView.transform.position += vec;
@@ -246,9 +246,9 @@ public class NavigationController : MonoBehaviour {
             }
             //Left
             //else if (Input.GetKey(KeyCode.Numlock))
-            else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Left)
+            else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Right)
             {
-                Vector3 vec = new Vector3(-0.01f, 0, 0);
+                Vector3 vec = new Vector3(-0.1f, 0, 0);
                 userSelectionView.transform.position += vec;
                 phaseSelectionView.transform.position += vec;
                 pathIdSelectionView.transform.position += vec;
@@ -261,7 +261,7 @@ public class NavigationController : MonoBehaviour {
             //else if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
             else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
             {
-                Vector3 vec = new Vector3(0, 0.01f, 0);
+                Vector3 vec = new Vector3(0, 0.1f, 0);
                 userSelectionView.transform.position += vec;
                 phaseSelectionView.transform.position += vec;
                 pathIdSelectionView.transform.position += vec;
@@ -274,7 +274,7 @@ public class NavigationController : MonoBehaviour {
             //else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
             {
-                Vector3 vec = new Vector3(0, -0.01f, 0);
+                Vector3 vec = new Vector3(0, -0.1f, 0);
                 userSelectionView.transform.position += vec;
                 phaseSelectionView.transform.position += vec;
                 pathIdSelectionView.transform.position += vec;
