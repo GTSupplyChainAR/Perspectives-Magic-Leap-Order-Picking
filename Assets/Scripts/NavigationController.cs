@@ -13,7 +13,6 @@ public class NavigationController : MonoBehaviour {
     //MLInputController
     //Bumper for back, trigger for select
     private const float _triggerThreshold = 0.2f;
-    private bool _bumperUp = false;
     private MLInputController _controller;
 
     // data model;
@@ -97,7 +96,36 @@ public class NavigationController : MonoBehaviour {
     {
         if (button == MLInputControllerButton.Bumper)
         {
-            _bumperUp = true;
+            OnBumper();
+        }
+    }
+
+    void OnBumper() {
+        switch (currentMode) {
+            case OrderPickingMode.UserSelection:
+                userSelectionBumper();
+                break;
+            case OrderPickingMode.PhaseSelection:
+                phaseSelectionBumper();
+                break;
+            case OrderPickingMode.PathIdSelection:
+                pathIdSelectionBumper();
+                break;
+            case OrderPickingMode.BookInfo:
+                bookInfoBumper();
+                break;
+            case OrderPickingMode.Shelf:
+                shelfBumper();
+                break;
+            case OrderPickingMode.Completion:
+                completionBumper();
+                break;
+            case OrderPickingMode.Placement:
+                placementSelectionBumper();
+                break;
+            default:
+                // do nothing
+                break;
         }
     }
 
@@ -259,6 +287,10 @@ public class NavigationController : MonoBehaviour {
         pathIdSelectionView.GetComponent<PathIdSelectionView>().setPhase(selectedPhase);
     }
 
+    private void placementSelectionBumper() {
+        // unused
+    }
+
     private void userSelectionControl(MLInputControllerTouchpadGesture touchpad_gesture) {
         //Debug.Log("V " + Input.GetAxis("Vertical"));
         //Debug.Log("H " + Input.GetAxis("Horizontal"));
@@ -284,6 +316,10 @@ public class NavigationController : MonoBehaviour {
         phaseSelectionView.GetComponent<PhaseSelectionView>().setPhase(selectedPhase);
     }
 
+    private void userSelectionBumper() {
+        // unused
+    }
+
     private void phaseSelectionControl(MLInputControllerTouchpadGesture touchpad_gesture)
     {
         //if (Input.GetKeyDown(KeyCode.B))
@@ -299,18 +335,13 @@ public class NavigationController : MonoBehaviour {
     }
 
     private void phaseSelectionTrigger() {
-        if (true)//(_controller.TriggerValue >= _triggerThreshold)
-        {
-            selectedPhase = phaseSelectionView.GetComponent<PhaseSelectionView>().getSelectedPhase();
-            setMode(OrderPickingMode.Placement);
-        }
-        //else if (Input.GetKeyDown(KeyCode.A))
-        else if (_bumperUp)
-        {
-            _bumperUp = false;
-            // go back to user selection
-            setMode(OrderPickingMode.UserSelection);
-        }
+        selectedPhase = phaseSelectionView.GetComponent<PhaseSelectionView>().getSelectedPhase();
+        setMode(OrderPickingMode.Placement);
+    }
+
+    private void phaseSelectionBumper() {
+        // go back to user selection
+        setMode(OrderPickingMode.UserSelection);
     }
 
     private void setMode(OrderPickingMode newMode) {
@@ -369,27 +400,21 @@ public class NavigationController : MonoBehaviour {
     }
 
     private void pathIdSelectionTrigger() {
-        if (true) //(_controller.TriggerValue >= _triggerThreshold)
-        {
-            setMode(OrderPickingMode.BookInfo);
-            selectedPathId = pathIdSelectionView.GetComponent<PathIdSelectionView>().getSelectedPathId();
+        setMode(OrderPickingMode.BookInfo);
+        selectedPathId = pathIdSelectionView.GetComponent<PathIdSelectionView>().getSelectedPathId();
 
-            // setup the next view
-            if (selectedPathId != pr.getPathId())
-            {
-                pr.setPathId(selectedPathId);
-                selectedBookNum = 0;
-                record_posted_book.Clear();
-            }
-            bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
-        }
-        //else if (Input.GetKeyDown(KeyCode.A))
-        else if (_bumperUp)
+        // setup the next view
+        if (selectedPathId != pr.getPathId())
         {
-            _bumperUp = false;
-            setMode(OrderPickingMode.PhaseSelection);
-
+            pr.setPathId(selectedPathId);
+            selectedBookNum = 0;
+            record_posted_book.Clear();
         }
+        bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
+    }
+
+    private void pathIdSelectionBumper() {
+        setMode(OrderPickingMode.PhaseSelection);
     }
 
     private void bookInfoControl(MLInputControllerTouchpadGesture touchpad_gesture)
@@ -411,14 +436,6 @@ public class NavigationController : MonoBehaviour {
                 selectedBookNum--;
                 bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
             }
-        }
-        //else if (Input.GetKeyDown(KeyCode.A))
-        else if (_bumperUp)
-        {
-            _bumperUp = false;
-            // switch to shelf view
-            setMode(OrderPickingMode.Shelf);
-            shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
         }
         //else if (Input.GetKeyDown(KeyCode.C))
         else if (Input.GetKeyDown(KeyCode.E))
@@ -448,9 +465,15 @@ public class NavigationController : MonoBehaviour {
         }
     }
 
+    private void bookInfoBumper() {
+        // switch to shelf view
+        setMode(OrderPickingMode.Shelf);
+        shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
+    }
+
     private void completionControl(MLInputControllerTouchpadGesture touchpad_gesture)
     {
-
+        // unused
     }
 
     private void completionTrigger() {
@@ -461,6 +484,10 @@ public class NavigationController : MonoBehaviour {
         selectedBookTag = "";
         record_posted_book.Clear();
         setMode(OrderPickingMode.UserSelection);
+    }
+
+    private void completionBumper() {
+        // unused
     }
 
     private void shelfControl(MLInputControllerTouchpadGesture touchpad_gesture)
@@ -483,18 +510,6 @@ public class NavigationController : MonoBehaviour {
                 shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
             }
         }
-        //else if (Input.GetKeyDown(KeyCode.A))
-        else if (_bumperUp)
-        {
-            _bumperUp = false;
-            // switch to book info view
-            setMode(OrderPickingMode.BookInfo);
-            bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
-        }
-        else if (Input.GetKeyDown(KeyCode.E))
-        {
-            setMode(OrderPickingMode.PathIdSelection);
-        }
     }
 
     private void shelfTrigger() {
@@ -515,12 +530,26 @@ public class NavigationController : MonoBehaviour {
             // go to next, or notify completion.
             setMode(OrderPickingMode.Completion);
         }
+
+        else if (Input.GetKeyDown(KeyCode.E))
+        {
+            setMode(OrderPickingMode.PathIdSelection);
+        }
+    }
+
+    private void shelfBumper() {
+        // switch to book info view
+        setMode(OrderPickingMode.BookInfo);
+        bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
     }
 
     // Update is called once per frame
     void Update () {
         if (Input.GetMouseButtonDown(0)) {
             OnTriggerDown(0, 0);
+        }
+        else if (Input.GetMouseButtonDown(1)) {
+            OnBumper();
         }
     }
 }
