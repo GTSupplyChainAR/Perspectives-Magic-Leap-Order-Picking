@@ -485,7 +485,7 @@ public class NavigationController : MonoBehaviour {
         if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
         {
             selectedBookNum++;
-            bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
+            shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
         }
         if (record_posted_book.Count >= pr.getNumberOfBooksInPath())
         {
