@@ -7,6 +7,8 @@ public class PathReader
     private PickPath[] patharr;
     private int userId;
     private int pathId;
+    private string position;
+
     private PickPath currentPath;
     private ExperimentReader reader;
     private Participant participant;
@@ -45,7 +47,26 @@ public class PathReader
         userId = id;
         participant = reader.participants.participants[userId - 1];
         Debug.Log("P::" + participant);
+
+        // Merge corresponding (at each index; len = 4) training and testing arrays
+        int[,] merged = new int[4, 15];
+        for (int i = 0; i < 4; i++) {
+            // Add training
+            for (int k = 0; k < 5; k++) {
+                merged[i, k] = participant.trainingPathOrder[i].pathIds[k];
+            }
+
+            // Add testing
+            for (int k = 5; k < 15; k++) {
+                merged[i, k] = participant.testingPathOrder[i].pathIds[k];
+            }
+        }
+
         //patharr = participant.trainingPathOrder[0].pathIds;
+    }
+
+    public void setPosition(string newPosition) {
+        this.position = newPosition;
     }
 
     public bool setPathId(int id) {
