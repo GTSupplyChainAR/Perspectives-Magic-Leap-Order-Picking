@@ -287,12 +287,12 @@ public class NavigationController : MonoBehaviour {
     private void phaseSelectionControl(MLInputControllerTouchpadGesture touchpad_gesture)
     {
         //if (Input.GetKeyDown(KeyCode.B))
-        if(touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
+        if(touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
         {
             phaseSelectionView.GetComponent<PhaseSelectionView>().selectTesting();
         }
         //else if (Input.GetKeyDown(KeyCode.D))
-        else if(touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
+        else if(touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
         {
             phaseSelectionView.GetComponent<PhaseSelectionView>().selectTraining();
         }
@@ -301,8 +301,8 @@ public class NavigationController : MonoBehaviour {
     private void phaseSelectionTrigger() {
         if (_controller.TriggerValue >= _triggerThreshold)
         {
-            selectedPhase = phaseSelectionView.GetComponent<PhaseSelectionView>().getSelectedPhase();
             setMode(OrderPickingMode.Placement);
+            selectedPhase = phaseSelectionView.GetComponent<PhaseSelectionView>().getSelectedPhase();
         }
         //else if (Input.GetKeyDown(KeyCode.A))
         else if (_bumperUp)
