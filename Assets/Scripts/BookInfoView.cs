@@ -26,6 +26,7 @@ public class BookInfoView : MonoBehaviour
         row.Add("D", 3);
         row.Add("E", 4);
         row.Add("F", 5);
+        row.Add("G", 6);
         highlight_row = -1;
         bookText = GameObject.Find("Book Text");
     }

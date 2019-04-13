@@ -8,6 +8,7 @@ public class JSON : MonoBehaviour {
     // Use this for initialization
     private string JSONFileName = "JSONFiles/pick-paths.json";
 	void Start () {
+        Debug.Log("JSON");
         ParseJSONDemo();
 	}
 	
@@ -21,6 +22,7 @@ public class JSON : MonoBehaviour {
         try
         {
             pr = new PathReader(Path.Combine(Application.dataPath, JSONFileName));
+            Debug.Log("parse");
         }
         catch (Exception e) {
             Debug.Log(e.Message);

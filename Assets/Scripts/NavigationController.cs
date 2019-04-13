@@ -81,7 +81,7 @@ public class NavigationController : MonoBehaviour {
 
         //controller
         MLInput.Start();
-        _controller = MLInput.GetController(MLInput.Hand.Left);
+        _controller = MLInput.GetController(MLInput.Hand.Right);
         MLInput.OnControllerButtonUp += OnButtonUp;
         MLInput.OnControllerTouchpadGestureStart += OnGestureStart;
         MLInput.OnTriggerDown += OnTriggerDown;
@@ -262,8 +262,6 @@ public class NavigationController : MonoBehaviour {
     private void userSelectionControl(MLInputControllerTouchpadGesture touchpad_gesture) {
         //Debug.Log("V " + Input.GetAxis("Vertical"));
         //Debug.Log("H " + Input.GetAxis("Horizontal"));
-
-        //if (Input.GetAxis("Vertical") == 1)
 
         //if (Input.GetKeyDown(KeyCode.B))
         if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
