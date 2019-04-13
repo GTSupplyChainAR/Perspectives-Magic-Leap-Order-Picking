@@ -21,7 +21,7 @@ public class ExperimentReader {
 
             Debug.Log(participantsArr.Length);
             foreach (Participant participant in participantsArr) {
-                Debug.Log(participant.testingPathOrder[0].pathIds[0].pathId);
+                Debug.Log(participant);
             }
         } else
         {
@@ -34,6 +34,10 @@ public class ExperimentReader {
 public class Participants
 {
     public Participant[] participants;
+
+    public override string ToString() {
+        return "boi";
+    }
 }
 
 [System.Serializable]
@@ -42,6 +46,14 @@ public class Participant
     public int participantId;
     public TrainingPathOrder[] trainingPathOrder;
     public TestingPathOrder[] testingPathOrder;
+    
+    public override string ToString() {
+        return "Participant: {\n"
+            + "ID = " + participantId.ToString() + "\n"
+            + "trainingPathOrder = " + trainingPathOrder.ToString() + "\n"
+            + "testingPathOrder = " + testingPathOrder.ToString()
+            + "}";
+    }
 }
 
 [System.Serializable]
@@ -49,6 +61,13 @@ public class TrainingPathOrder
 {
     public string position;
     public PathIds[] pathIds;
+
+    public override string ToString() {
+        return "TrainingPathOrder: {\n"
+            + "position = " + position + "\n"
+            + "pathIds = " + pathIds.ToString()
+            + "}";
+    }
 }
 
 [System.Serializable]
@@ -56,10 +75,23 @@ public class TestingPathOrder
 {
     public string position;
     public PathIds[] pathIds;
+
+    public override string ToString() {
+        return "TestingPathOrder: {\n"
+            + "position = " + position + "\n"
+            + "pathIds = " + pathIds.ToString()
+            + "}";
+    }
 }
 
 [System.Serializable]
 public class PathIds
 {
     public int pathId;
+
+    public override string ToString() {
+        return "TrainingPathOrder: {\n"
+            + "pathId = " + pathId.ToString()
+            + "}";
+    }
 }

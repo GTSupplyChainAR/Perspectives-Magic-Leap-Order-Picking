@@ -78,7 +78,11 @@ public class PickPath {
     public PickPathInformation pickPathInformation;
     
     public override string ToString() {
-        return "PickPath: [ " + pathId + " | " + pathType + " ]";
+        return "PickPath: {\n"
+            + "pathId = " + pathId.ToString() + "\n"
+            + "pathType = " + pathType + "\n"
+            + "pickPathInformation = " + pickPathInformation + "\n"
+            + "}";
     }
 }
 [System.Serializable]
@@ -86,6 +90,14 @@ public class PickPathInformation {
     public BookWithLocation[] unorderedBooksAndLocations;
     public BookWithLocation[] orderedBooksAndLocations;
     public OrderedPickPath[] orderedPickPath;
+
+    public override string ToString() {
+        return "PickPathInformation: {\n"
+            + "unorderedBooksAndLocations = " + unorderedBooksAndLocations.ToString() + "\n"
+            + "orderedBooksAndLocations = " + orderedBooksAndLocations.ToString() + "\n"
+            + "orderedPickPath = " + orderedPickPath.ToString() + "\n"
+            + "}";
+    }
 }
 
 [System.Serializable]
@@ -94,6 +106,13 @@ public class OrderedPickPath
     public int stepNumber;
     public int[][] cellByCellPathToTargetBookLocation;
     public BookWithLocation targetBookAndTargetBookLocation;
+
+    public override string ToString() {
+        return "OrderedPickPath: {\n"
+            + "stepNumber = " + stepNumber.ToString() + "\n"
+            + "targetBookAndTargetBookLocation = " + targetBookAndTargetBookLocation.ToString() + "\n"
+            + "}";
+    }
 }
 
 [System.Serializable]
@@ -101,6 +120,18 @@ public class BookWithLocation
 {
     public Book book;
     public int[] location;
+
+    public override string ToString() {
+        string locationStr = "[ ";
+        foreach (int loc in location) {
+            locationStr += loc.ToString() + " ";
+        }
+        locationStr += " ]";
+        return "BookWithLocation: {\n"
+            + "book = " + book.ToString() + "\n"
+            + "location = " + locationStr + "\n"
+            + "}";
+    }
 }
 
 [System.Serializable]
@@ -109,6 +140,14 @@ public class Book
     public string title;
     public string author;
     public string tag;
+
+    public override string ToString() {
+        return "TrainingPathOrder: {\n"
+            + "title = " + title + "\n"
+            + "author = " + author + "\n"
+            + "tag = " + tag + "\n"
+            + "}";
+    }
 
 }
 
