@@ -21,6 +21,10 @@ public class NavigationController : MonoBehaviour {
     private int selectedPathId = 1;
     private int selectedBookNum = 0;
     private string selectedBookTag = "";
+    private int[,] mergeArr = new int[4, 15];
+    private int positionRound = 0; //0-4 keep track of how many positions the user has done
+    private int placeRound = 0;
+
 
     private Dictionary<int, string> record_posted_book;
     private PathReader pr;
@@ -58,7 +62,6 @@ public class NavigationController : MonoBehaviour {
         // data model init
         pr = new PathReader(Path.Combine(Application.streamingAssetsPath, "pick-paths.json"));
         pr.setUserId(selectedUserId);
-        pr.setPathId(selectedPathId);
         record_posted_book = new Dictionary<int, string>();
         userSelectionView = GameObject.Find("User Selection View");
         userSelectionView.SetActive(false);
@@ -285,7 +288,7 @@ public class NavigationController : MonoBehaviour {
 
     private void placementSelectionTrigger() {
         setMode(OrderPickingMode.PathIdSelection);
-        // setup next selection
+        // setup next selection        
         pathIdSelectionView.GetComponent<PathIdSelectionView>().setPhase(selectedPhase);
     }
 
@@ -362,6 +365,7 @@ public class NavigationController : MonoBehaviour {
                 newActiveView = phaseSelectionView;
                 break;
             case OrderPickingMode.PathIdSelection:
+                placeRound++;
                 newActiveView = pathIdSelectionView;
                 break;
             case OrderPickingMode.BookInfo:
@@ -374,6 +378,7 @@ public class NavigationController : MonoBehaviour {
                 newActiveView = completionView;
                 break;
             case OrderPickingMode.Placement:
+                positionRound++;
                 newActiveView = placementView;
                 break;
             default:
@@ -403,7 +408,8 @@ public class NavigationController : MonoBehaviour {
 
     private void pathIdSelectionTrigger() {
         setMode(OrderPickingMode.BookInfo);
-        selectedPathId = pathIdSelectionView.GetComponent<PathIdSelectionView>().getSelectedPathId();
+        mergeArr = pr.getMergedArry();
+        selectedPathId = mergeArr[positionRound - 1, placeRound - 1];
 
         // setup the next view
         if (selectedPathId != pr.getPathId())
@@ -425,6 +431,7 @@ public class NavigationController : MonoBehaviour {
     }
 
     private void bookInfoTrigger() {
+
         // get the book, send server data
         if (!record_posted_book.ContainsKey(selectedBookNum))
         {
@@ -463,7 +470,49 @@ public class NavigationController : MonoBehaviour {
         selectedBookNum = 0;
         selectedBookTag = "";
         record_posted_book.Clear();
-        setMode(OrderPickingMode.UserSelection);
+
+       
+ 
+        if (selectedPhase == 0)
+        {
+            if (placeRound == 5)
+            {
+                placeRound = 0;
+                if (positionRound == 4)
+                {
+                    positionRound = 0;
+                    setMode(OrderPickingMode.UserSelection);
+                } else
+                {
+                setMode(OrderPickingMode.Placement);
+
+                }
+            } else
+            {
+                setMode(OrderPickingMode.PathIdSelection);
+            }
+        }
+        else if (selectedPhase == 1)
+        {
+            if (placeRound == 10)
+            {
+                placeRound = 0;
+                if (positionRound == 4)
+                {
+                    positionRound = 0;
+                    setMode(OrderPickingMode.UserSelection);
+                }
+                else
+                {
+                    setMode(OrderPickingMode.Placement);
+                }
+            }
+            else
+            {
+                setMode(OrderPickingMode.PathIdSelection);
+            }
+        }
+        
     }
 
     private void completionBumper() {

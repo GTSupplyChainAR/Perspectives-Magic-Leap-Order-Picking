@@ -8,10 +8,11 @@ public class PathReader
     private int userId;
     private int pathId;
     private string position;
-
+    private PickPath[,] ordered;
     private PickPath currentPath;
     private ExperimentReader reader;
     private Participant participant;
+    private int[,] merged = new int[4, 15];
 
     /*public PathReader(PickPaths paths) {
         if (this.paths == null) {
@@ -43,13 +44,17 @@ public class PathReader
         return pathId;
     }
 
+    public int[,] getMergedArry()
+    {
+        return merged;
+    }
+
     public void setUserId(int id) {
         userId = id;
-        participant = reader.participants.participants[userId - 1];
+        participant = reader.participants.participants[userId];
         Debug.Log("P::" + participant);
 
         // Merge corresponding (at each index; len = 4) training and testing arrays
-        int[,] merged = new int[4, 15];
         for (int i = 0; i < 4; i++) {
             // Add training
             for (int k = 0; k < 5; k++) {
@@ -57,11 +62,10 @@ public class PathReader
             }
 
             // Add testing
-            for (int k = 5; k < 15; k++) {
-                merged[i, k] = participant.testingPathOrder[i].pathIds[k];
+            for (int k = 0; k < 10; k++) {
+                merged[i, k + 5] = participant.testingPathOrder[i].pathIds[k];
             }
         }
-
         //patharr = participant.trainingPathOrder[0].pathIds;
     }
 
