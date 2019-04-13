@@ -36,7 +36,13 @@ public class Participants
     public Participant[] participants;
 
     public override string ToString() {
-        return "boi";
+        string str = "Participant[]: [\n";
+        foreach (Participant p in participants) {
+            str += p.ToString() + "\n";
+        }
+        str += "]";
+
+        return str;
     }
 }
 
@@ -48,10 +54,22 @@ public class Participant
     public TestingPathOrder[] testingPathOrder;
     
     public override string ToString() {
+        string trainStr = "trainingPathOrder[]: [\n";
+        foreach (TrainingPathOrder t in trainingPathOrder) {
+            trainStr += t.ToString() + "\n";
+        }
+        trainStr += "]";
+
+        string testingStr = "testingPathOrder[]: [\n";
+        foreach (TestingPathOrder t in testingPathOrder) {
+            testingStr += t.ToString() + "\n";
+        }
+        testingStr += "]";
+
         return "Participant: {\n"
             + "ID = " + participantId.ToString() + "\n"
-            + "trainingPathOrder = " + trainingPathOrder.ToString() + "\n"
-            + "testingPathOrder = " + testingPathOrder.ToString()
+            + "trainingPathOrder = " + trainStr + "\n"
+            + "testingPathOrder = " + testingStr
             + "}";
     }
 }
@@ -60,14 +78,26 @@ public class Participant
 public class TrainingPathOrder
 {
     public string position;
-    public PathIds[] pathIds;
+    public int[] pathIds;
 
     public override string ToString() {
+<<<<<<< HEAD
         foreach (PathIds id in pathIds)
         {
             return "TrainingPathOrder: {\n"
             + "position = " + position + "\n"
             + "pathIds = " + id.ToString()
+=======
+        string pathIdStr = "pathIds[]: [\n";
+        foreach (int p in pathIds) {
+            pathIdStr += p.ToString() + "\n";
+        }
+        pathIdStr += "]";
+
+        return "TrainingPathOrder: {\n"
+            + "position = " + position + "\n"
+            + "pathIds = " + pathIdStr + "\n"
+>>>>>>> 179d1472f615e5800b9baaf6d76b3541f32678ca
             + "}";
 
         }
@@ -79,15 +109,27 @@ public class TrainingPathOrder
 public class TestingPathOrder
 {
     public string position;
-    public PathIds[] pathIds;
+    public int[] pathIds;
 
 
     public override string ToString() {
+<<<<<<< HEAD
         foreach (PathIds id in pathIds)
         {
             return "TestingPathOrder: {\n"
             + "position = " + position + "\n"
             + "pathIds = " + id.ToString()
+=======
+        string pathIdStr = "pathIds[]: [\n";
+        foreach (int p in pathIds) {
+            pathIdStr += p.ToString() + "\n";
+        }
+        pathIdStr += "]";
+
+        return "TestingPathOrder: {\n"
+            + "position = " + position + "\n"
+            + "pathIds = " + pathIdStr
+>>>>>>> 179d1472f615e5800b9baaf6d76b3541f32678ca
             + "}";
 
         }
