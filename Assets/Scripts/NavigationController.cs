@@ -277,8 +277,8 @@ public class NavigationController : MonoBehaviour {
     }
 
     private void userSelectionTrigger() {
-        setMode(OrderPickingMode.PhaseSelection);
         selectedUserId = userSelectionView.GetComponent<UserSelectionView>().getSelectedUserId();
+        setMode(OrderPickingMode.PhaseSelection);
         // clear next selection
         selectedPhase = 0;
         phaseSelectionView.GetComponent<PhaseSelectionView>().setPhase(selectedPhase);
@@ -287,22 +287,22 @@ public class NavigationController : MonoBehaviour {
     private void phaseSelectionControl(MLInputControllerTouchpadGesture touchpad_gesture)
     {
         //if (Input.GetKeyDown(KeyCode.B))
-        if(touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
+        if(touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
         {
             phaseSelectionView.GetComponent<PhaseSelectionView>().selectTesting();
         }
         //else if (Input.GetKeyDown(KeyCode.D))
-        else if(touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
+        else if(touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
         {
             phaseSelectionView.GetComponent<PhaseSelectionView>().selectTraining();
         }
     }
 
     private void phaseSelectionTrigger() {
-        if (_controller.TriggerValue >= _triggerThreshold)
+        if (true)//(_controller.TriggerValue >= _triggerThreshold)
         {
-            setMode(OrderPickingMode.Placement);
             selectedPhase = phaseSelectionView.GetComponent<PhaseSelectionView>().getSelectedPhase();
+            setMode(OrderPickingMode.Placement);
         }
         //else if (Input.GetKeyDown(KeyCode.A))
         else if (_bumperUp)
@@ -369,7 +369,7 @@ public class NavigationController : MonoBehaviour {
     }
 
     private void pathIdSelectionTrigger() {
-        if (_controller.TriggerValue >= _triggerThreshold)
+        if (true) //(_controller.TriggerValue >= _triggerThreshold)
         {
             setMode(OrderPickingMode.BookInfo);
             selectedPathId = pathIdSelectionView.GetComponent<PathIdSelectionView>().getSelectedPathId();
