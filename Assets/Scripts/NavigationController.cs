@@ -142,9 +142,9 @@ public class NavigationController : MonoBehaviour {
             case OrderPickingMode.PhaseSelection:
                 phaseSelectionControl(touchpad_gesture);
                 break;
-            case OrderPickingMode.PathIdSelection:
-                pathIdSelectionControl(touchpad_gesture);
-                break;
+            //case OrderPickingMode.PathIdSelection:
+            //    pathIdSelectionControl(touchpad_gesture);
+            //    break;
             case OrderPickingMode.BookInfo:
                 bookInfoControl(touchpad_gesture);
                 break;
@@ -236,7 +236,7 @@ public class NavigationController : MonoBehaviour {
             if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Right)
             {
                 Vector3 vec = new Vector3(0.01f, 0, 0);
-                //userSelectionView.transform.position += vec;
+                userSelectionView.transform.position += vec;
                 phaseSelectionView.transform.position += vec;
                 pathIdSelectionView.transform.position += vec;
                 bookInfoView.transform.position += vec;
@@ -249,7 +249,7 @@ public class NavigationController : MonoBehaviour {
             else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Left)
             {
                 Vector3 vec = new Vector3(-0.01f, 0, 0);
-                //userSelectionView.transform.position += vec;
+                userSelectionView.transform.position += vec;
                 phaseSelectionView.transform.position += vec;
                 pathIdSelectionView.transform.position += vec;
                 bookInfoView.transform.position += vec;
@@ -262,7 +262,7 @@ public class NavigationController : MonoBehaviour {
             else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
             {
                 Vector3 vec = new Vector3(0, 0.01f, 0);
-                //userSelectionView.transform.position += vec;
+                userSelectionView.transform.position += vec;
                 phaseSelectionView.transform.position += vec;
                 pathIdSelectionView.transform.position += vec;
                 bookInfoView.transform.position += vec;
@@ -275,7 +275,7 @@ public class NavigationController : MonoBehaviour {
             else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
             {
                 Vector3 vec = new Vector3(0, -0.01f, 0);
-                //userSelectionView.transform.position += vec;
+                userSelectionView.transform.position += vec;
                 phaseSelectionView.transform.position += vec;
                 pathIdSelectionView.transform.position += vec;
                 bookInfoView.transform.position += vec;
@@ -393,18 +393,19 @@ public class NavigationController : MonoBehaviour {
         currentMode = newMode;
     }
 
-    private void pathIdSelectionControl(MLInputControllerTouchpadGesture touchpad_gesture) {
-        //if (Input.GetKeyDown(KeyCode.B))
-        if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
-        {
-            pathIdSelectionView.GetComponent<PathIdSelectionView>().selectNext();
-        }
-        //else if (Input.GetKeyDown(KeyCode.D))
-        else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
-        {
-            pathIdSelectionView.GetComponent<PathIdSelectionView>().selectLast();
-        }
-    }
+    //private void pathIdSelectionControl(MLInputControllerTouchpadGesture touchpad_gesture)
+    //{
+    //    if (Input.GetKeyDown(KeyCode.B))
+    //        if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
+    //        {
+    //            pathIdSelectionView.GetComponent<PathIdSelectionView>().selectNext();
+    //        }
+    //        else if (Input.GetKeyDown(KeyCode.D))
+    //    else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
+    //        {
+    //            pathIdSelectionView.GetComponent<PathIdSelectionView>().selectLast();
+    //        }
+    //}
 
     private void pathIdSelectionTrigger() {
         setMode(OrderPickingMode.BookInfo);

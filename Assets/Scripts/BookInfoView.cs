@@ -9,7 +9,7 @@ public class BookInfoView : MonoBehaviour
 
     private GameObject bookText;
     private GameObject book;
-    private int maxLineChars = 10;
+    private int maxLineChars = 25;
     private String[] words;
     String result = "";
     private int charCount;
@@ -65,7 +65,7 @@ public class BookInfoView : MonoBehaviour
         5 -> 1
         */
         int val = int.Parse(loc[2]);
-        val = Math.Abs(val - 5) + 1;
+        //val = Math.Abs(val - 5) + 1;
         loc[2] = val.ToString();
 
         highlight_row = row[loc[2]];
