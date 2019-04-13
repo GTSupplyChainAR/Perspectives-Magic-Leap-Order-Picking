@@ -5,8 +5,12 @@ public class PathReader
 {
     private PickPaths paths;
     private PickPath[] patharr;
+    private int userId;
     private int pathId;
     private PickPath currentPath;
+    private ExperimentReader reader;
+    private Participant participant;
+
     /*public PathReader(PickPaths paths) {
         if (this.paths == null) {
             throw new NullReferenceException("PickPaths cannot be set null");
@@ -25,10 +29,25 @@ public class PathReader
         {
             throw new FileNotFoundException(filePath + " cannot be found.");
         }
+
+        reader = new ExperimentReader("experiments.json");
     }
+
+    public int getUserId() {
+        return userId;
+    }
+
     public int getPathId() {
         return pathId;
     }
+
+    public void setUserId(int id) {
+        userId = id;
+        participant = reader.participants.participants[userId - 1];
+        Debug.Log("P::" + participant);
+        //patharr = participant.trainingPathOrder[0].pathIds;
+    }
+
     public bool setPathId(int id) {
         if (id < 1 || id > patharr.Length)
         {

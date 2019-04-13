@@ -57,6 +57,7 @@ public class NavigationController : MonoBehaviour {
     void Start() {
         // data model init
         pr = new PathReader(Path.Combine(Application.streamingAssetsPath, "pick-paths.json"));
+        pr.setUserId(selectedUserId);
         pr.setPathId(selectedPathId);
         record_posted_book = new Dictionary<int, string>();
         userSelectionView = GameObject.Find("User Selection View");

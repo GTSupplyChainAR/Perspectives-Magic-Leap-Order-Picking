@@ -3,10 +3,10 @@ using UnityEngine;
 using System;
 
 public class ExperimentReader {
-    private Participants participants;
-    private Participant[] participantsArr;
-    private int participantId;
-    private PathIds pathIds;
+    public Participants participants;
+    public Participant[] participantsArr;
+    public int participantId;
+    public PathIds pathIds;
 
     public ExperimentReader(string filePath)
     {
@@ -15,11 +15,7 @@ public class ExperimentReader {
         {
             string dataAsJSON = File.ReadAllText(filePath);
             participants = JsonUtility.FromJson<Participants>(dataAsJSON);
-            Debug.Log(participants);
             participantsArr = participants.participants;
-            Debug.Log(participantsArr);
-
-            Debug.Log(participantsArr.Length);
             foreach (Participant participant in participantsArr) {
                 Debug.Log(participant);
             }
