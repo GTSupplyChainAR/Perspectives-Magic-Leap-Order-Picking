@@ -277,12 +277,11 @@ public class NavigationController : MonoBehaviour {
     }
 
     private void userSelectionTrigger() {
+        setMode(OrderPickingMode.PhaseSelection);
         selectedUserId = userSelectionView.GetComponent<UserSelectionView>().getSelectedUserId();
         // clear next selection
         selectedPhase = 0;
         phaseSelectionView.GetComponent<PhaseSelectionView>().setPhase(selectedPhase);
-        
-        setMode(OrderPickingMode.PhaseSelection);
     }
 
     private void phaseSelectionControl(MLInputControllerTouchpadGesture touchpad_gesture)
@@ -372,9 +371,8 @@ public class NavigationController : MonoBehaviour {
     private void pathIdSelectionTrigger() {
         if (_controller.TriggerValue >= _triggerThreshold)
         {
-            selectedPathId = pathIdSelectionView.GetComponent<PathIdSelectionView>().getSelectedPathId();
-            
             setMode(OrderPickingMode.BookInfo);
+            selectedPathId = pathIdSelectionView.GetComponent<PathIdSelectionView>().getSelectedPathId();
 
             // setup the next view
             if (selectedPathId != pr.getPathId())
@@ -521,7 +519,9 @@ public class NavigationController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
-        
+        if (Input.GetMouseButtonDown(0)) {
+            OnTriggerDown(0, 0);
+        }
     }
 }
 
