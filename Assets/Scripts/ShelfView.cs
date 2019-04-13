@@ -34,18 +34,9 @@ public class ShelfView : MonoBehaviour
 
         column = new Dictionary<string, int>();
         row = new Dictionary<string, int>();
-        column.Add("100", 0);
-        column.Add("101", 0);
-        column.Add("102", 1);
-        column.Add("103", 1);
-        column.Add("104", 2);
-        column.Add("105", 2);
-        column.Add("106", 3);
-        column.Add("107", 3);
-        column.Add("108", 4);
-        column.Add("109", 4);
-        column.Add("110", 5);
-        column.Add("111", 5);
+        column.Add("1", 0);
+        column.Add("2", 1);
+        column.Add("3", 2);
 
         row.Add("A", 0);
         row.Add("B", 1);
@@ -53,6 +44,7 @@ public class ShelfView : MonoBehaviour
         row.Add("D", 3);
         row.Add("E", 4);
         row.Add("F", 5);
+        row.Add("G", 6);
 
     }
     private void updateAisle(string text)
@@ -61,7 +53,7 @@ public class ShelfView : MonoBehaviour
     }
     private void updateColoumTexts(string[] col_texts)
     {
-        int min = col_texts.Length > 6 ? 6 : col_texts.Length;
+        int min = col_texts.Length > 3 ? 3 : col_texts.Length;
         for (int i = 0; i < min; i++)
         {
             GameObject.Find("column_text_" + i).GetComponent<TextMesh>().text = col_texts[i];
@@ -70,7 +62,7 @@ public class ShelfView : MonoBehaviour
     private void highlightBlock(int row, int column)
     {
         
-        if (row >= 0 && row < 6 && column >= 0 && column < 6)
+        if (row >= 0 && row < 7 && column >= 0 && column < 3)
         {
             Sprite block = Resources.Load<Sprite>(this.block_names[row]);
             GameObject.Find("empty_block_" + row + "_" + column).GetComponent<SpriteRenderer>().sprite = block;
@@ -95,18 +87,11 @@ public class ShelfView : MonoBehaviour
         int row_id = row[loc[3]];
         int col_id = column[loc[2]];
         string aisle = loc[1];
-        if (string.Equals(aisle, "A") || string.Equals(aisle, "C") || string.Equals(aisle, "E"))
-        {
+        
             highlightBlock(row_id, col_id);
-            updateColoumTexts(new string[] { "100", "102", "104", "106", "108", "110" });
+            updateColoumTexts(new string[] { "1", "2", "3" });
             updateAisle(aisle);
-        }
-        else
-        {
-            highlightBlock(row_id, col_id);
-            updateColoumTexts(new string[] { "101", "103", "105", "107", "109", "111" });
-            updateAisle(aisle);
-        }
+       
     }
     void Start()
     {
