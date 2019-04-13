@@ -76,6 +76,10 @@ public class PickPath {
     public int pathId;
     public string pathType;
     public PickPathInformation pickPathInformation;
+    
+    public override string ToString() {
+        return "PickPath: [ " + pathId + " | " + pathType + " ]";
+    }
 }
 [System.Serializable]
 public class PickPathInformation {

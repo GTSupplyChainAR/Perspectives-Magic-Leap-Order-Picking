@@ -25,7 +25,6 @@ public class BookInfoView : MonoBehaviour
         row.Add("3", 2);
         row.Add("4", 3);
         row.Add("5", 4);
-        Debug.Log("adding...");
         highlight_row = -1;
         bookText = GameObject.Find("Book Text");
     }
@@ -56,6 +55,19 @@ public class BookInfoView : MonoBehaviour
 
         //Highlight new block
         string[] loc = tag.Split('-');
+        
+        /*
+        Invert values:
+        1 -> 5
+        2 -> 4
+        3 -> 3
+        4 -> 2
+        5 -> 1
+        */
+        int val = int.Parse(loc[2]);
+        val = Math.Abs(val - 5) + 1;
+        loc[2] = val.ToString();
+
         highlight_row = row[loc[2]];
         objectID = "row_" + highlight_row + "_block";
         Sprite redBlock = Resources.Load<Sprite>("red_block");
