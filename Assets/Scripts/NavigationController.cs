@@ -97,6 +97,7 @@ public class NavigationController : MonoBehaviour {
         if (button == MLInputControllerButton.Bumper)
         {
             OnBumper();
+            Debug.Log("-- ON BUMPER --");
         }
     }
 
