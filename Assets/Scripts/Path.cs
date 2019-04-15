@@ -62,7 +62,7 @@ public class PathReader
             }
 
             // Add testing
-            for (int k = 0; k < 10; k++) {
+            for (int k = 0; k < 5; k++) {
                 merged[i, k + 5] = participant.testingPathOrder[i].pathIds[k];
             }
         }
