@@ -15,6 +15,7 @@ public class BookInfoView : MonoBehaviour
     private int charCount;
     private int shelfHighlightNumber;
     private int highlight_row;
+    private int highlight_col;
     private Dictionary<string, int> row;
 
     // Use this for initialization
@@ -48,8 +49,8 @@ public class BookInfoView : MonoBehaviour
         String objectID;
         if (highlight_row != -1)
         {
-            objectID = "row_" + highlight_row + "_block";
-            Sprite greenBlock = Resources.Load<Sprite>("green_block");
+            objectID = "row_" + highlight_col + "_" + highlight_row + "_block";
+            Sprite greenBlock = Resources.Load<Sprite>("gray_block");
             GameObject.Find(objectID).GetComponent<SpriteRenderer>().sprite = greenBlock;
         }
 
@@ -69,7 +70,8 @@ public class BookInfoView : MonoBehaviour
         loc[2] = val.ToString();
 
         highlight_row = row[loc[2]];
-        objectID = "row_" + highlight_row + "_block";
+        highlight_col = row[loc[1]];
+        objectID = "row_" + highlight_col + "_" + highlight_row + "_block";
         Sprite redBlock = Resources.Load<Sprite>("red_block");
         GameObject.Find(objectID).GetComponent<SpriteRenderer>().sprite = redBlock;
         GameObject.Find("shelf_number_text").GetComponent<TextMesh>().text = loc[2];

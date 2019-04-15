@@ -2,7 +2,7 @@
 
 
 USES = \
-	C:\Users\georg\Desktop\Perspectives-Magic-Leap-Order-Picking\Temp/StagingArea\assets \
+	/Users/laurenkearley/Perspectives-Magic-Leap-Order-Picking/Temp/StagingArea/assets \
 
 
 ######### DO NOT EDIT ABOVE #########
