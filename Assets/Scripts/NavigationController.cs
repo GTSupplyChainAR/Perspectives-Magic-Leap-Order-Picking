@@ -113,9 +113,6 @@ public class NavigationController : MonoBehaviour {
             case OrderPickingMode.PhaseSelection:
                 phaseSelectionBumper();
                 break;
-            case OrderPickingMode.PathIdSelection:
-                pathIdSelectionBumper();
-                break;
             case OrderPickingMode.BookInfo:
                 bookInfoBumper();
                 break;
@@ -124,9 +121,6 @@ public class NavigationController : MonoBehaviour {
                 break;
             case OrderPickingMode.Completion:
                 completionBumper();
-                break;
-            case OrderPickingMode.Placement:
-                placementSelectionBumper();
                 break;
             default:
                 // do nothing
@@ -422,9 +416,6 @@ public class NavigationController : MonoBehaviour {
         bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
     }
 
-    private void pathIdSelectionBumper() {
-        setMode(OrderPickingMode.PhaseSelection);
-    }
 
     private void bookInfoControl(MLInputControllerTouchpadGesture touchpad_gesture)
     {
@@ -476,7 +467,7 @@ public class NavigationController : MonoBehaviour {
  
         if (selectedPhase == 0)
         {
-            if (placeRound == 5)
+            if (placeRound == 2)
             {
                 placeRound = 0;
                 if (positionRound == 4)
@@ -495,7 +486,7 @@ public class NavigationController : MonoBehaviour {
         }
         else if (selectedPhase == 1)
         {
-            if (placeRound == 10)
+            if (placeRound == 5)
             {
                 placeRound = 0;
                 if (positionRound == 4)
