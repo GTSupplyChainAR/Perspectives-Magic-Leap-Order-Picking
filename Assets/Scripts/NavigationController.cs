@@ -225,7 +225,7 @@ public class NavigationController : MonoBehaviour {
     {
         if (touchpad_gesture.Type == MLInputControllerTouchpadGestureType.Swipe)
         {
-            Vector3 vec;
+            Vector3 vec = Vector3.zero;
 
             //Down
             //if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
@@ -251,6 +251,7 @@ public class NavigationController : MonoBehaviour {
             {
                 vec = Vector3.down;
             }
+            vec /= 10;
 
             userSelectionView.transform.position += vec;
             phaseSelectionView.transform.position += vec;
