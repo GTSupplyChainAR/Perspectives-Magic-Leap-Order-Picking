@@ -467,7 +467,7 @@ public class NavigationController : MonoBehaviour {
  
         if (selectedPhase == 0)
         {
-            if (placeRound == 2)
+            if (placeRound == 5)
             {
                 placeRound = 0;
                 if (positionRound == 4)
