@@ -225,58 +225,40 @@ public class NavigationController : MonoBehaviour {
     {
         if (touchpad_gesture.Type == MLInputControllerTouchpadGestureType.Swipe)
         {
+            Vector3 vec;
+
             //Down
             //if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
             if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Left)
             {
-                Vector3 vec = new Vector3(0.1f, 0, 0);
-                userSelectionView.transform.position += vec;
-                phaseSelectionView.transform.position += vec;
-                pathIdSelectionView.transform.position += vec;
-                bookInfoView.transform.position += vec;
-                shelfView.transform.position += vec;
-                completionView.transform.position += vec;
-                placementView.transform.position += vec;
+                vec = Vector3.left;
             }
             //Left
             //else if (Input.GetKey(KeyCode.Numlock))
             else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Right)
             {
-                Vector3 vec = new Vector3(-0.1f, 0, 0);
-                userSelectionView.transform.position += vec;
-                phaseSelectionView.transform.position += vec;
-                pathIdSelectionView.transform.position += vec;
-                bookInfoView.transform.position += vec;
-                shelfView.transform.position += vec;
-                completionView.transform.position += vec;
-                placementView.transform.position += vec;
+                vec = Vector3.right;
             }
             //Up
             //else if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
             else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
             {
-                Vector3 vec = new Vector3(0, 0.1f, 0);
-                userSelectionView.transform.position += vec;
-                phaseSelectionView.transform.position += vec;
-                pathIdSelectionView.transform.position += vec;
-                bookInfoView.transform.position += vec;
-                shelfView.transform.position += vec;
-                completionView.transform.position += vec;
-                placementView.transform.position += vec;
+                vec = Vector3.up;
             }
             //Right
             //else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
             {
-                Vector3 vec = new Vector3(0, -0.1f, 0);
-                userSelectionView.transform.position += vec;
-                phaseSelectionView.transform.position += vec;
-                pathIdSelectionView.transform.position += vec;
-                bookInfoView.transform.position += vec;
-                shelfView.transform.position += vec;
-                completionView.transform.position += vec;
-                placementView.transform.position += vec;
+                vec = Vector3.down;
             }
+
+            userSelectionView.transform.position += vec;
+            phaseSelectionView.transform.position += vec;
+            pathIdSelectionView.transform.position += vec;
+            bookInfoView.transform.position += vec;
+            shelfView.transform.position += vec;
+            completionView.transform.position += vec;
+            placementView.transform.position += vec;
         }
     }
 
