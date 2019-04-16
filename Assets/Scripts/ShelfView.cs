@@ -92,8 +92,8 @@ public class ShelfView : MonoBehaviour
         string aisle = loc[0];
         
             highlightBlock(row_id, col_id);
-            updateColoumTexts(new string[] { "1", "2", "3" });
-            updateAisle(aisle);
+            //updateColoumTexts(new string[] { "1", "2", "3" });
+            //updateAisle(aisle);
        
     }
     void Start()
