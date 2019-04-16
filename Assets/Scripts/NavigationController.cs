@@ -253,14 +253,25 @@ public class NavigationController : MonoBehaviour {
             }
             vec /= 10;
 
-            userSelectionView.transform.position += vec;
-            phaseSelectionView.transform.position += vec;
-            pathIdSelectionView.transform.position += vec;
-            bookInfoView.transform.position += vec;
-            shelfView.transform.position += vec;
-            completionView.transform.position += vec;
-            placementView.transform.position += vec;
+            vec /= 10;
+
+            moveView(userSelectionView, vec);
+            moveView(phaseSelectionView, vec);
+            moveView(pathIdSelectionView, vec);
+            moveView(bookInfoView, vec);
+            moveView(shelfView, vec);
+            moveView(completionView, vec);
+            moveView(placementView, vec);
         }
+    }
+
+    private void moveView(GameObject o, Vector3 delta) {
+        Transform t = o.transform;
+        Vector3 pos = t.position;
+        float origZ = pos.z;
+        pos += delta;
+        pos.z = origZ;
+        t.position = pos;
     }
 
     private void placementSelectionTrigger() {
