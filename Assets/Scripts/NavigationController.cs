@@ -227,32 +227,26 @@ public class NavigationController : MonoBehaviour {
         {
             Vector3 vec = Vector3.zero;
 
-            //Down
             //if (Input.GetKey(KeyCode.LeftControl) || Input.GetKey(KeyCode.RightControl))
             if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Left)
             {
                 vec = Vector3.left;
             }
-            //Left
             //else if (Input.GetKey(KeyCode.Numlock))
             else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Right)
             {
                 vec = Vector3.right;
             }
-            //Up
             //else if (Input.GetKey(KeyCode.LeftAlt) || Input.GetKey(KeyCode.RightAlt))
             else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
             {
                 vec = Vector3.up;
             }
-            //Right
             //else if (Input.GetKey(KeyCode.LeftShift) || Input.GetKey(KeyCode.RightShift))
             else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
             {
                 vec = Vector3.down;
             }
-            vec /= 10;
-
             vec /= 10;
 
             moveView(userSelectionView, vec);
@@ -266,12 +260,12 @@ public class NavigationController : MonoBehaviour {
     }
 
     private void moveView(GameObject o, Vector3 delta) {
-        Transform t = o.transform;
-        Vector3 pos = t.position;
+        RectTransform t = o.GetComponent<RectTransform>();
+        Vector3 pos = t.localPosition;
         float origZ = pos.z;
         pos += delta;
         pos.z = origZ;
-        t.position = pos;
+        t.localPosition = pos;
     }
 
     private void placementSelectionTrigger() {
