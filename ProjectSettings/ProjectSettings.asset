@@ -706,7 +706,7 @@ PlayerSettings:
     m_ModelFolderPath: 
     m_PortalFolderPath: 
   luminCert:
-    m_CertPath: /Users/laurenkearley/Downloads/ccg.cert
+    m_CertPath: C:/Users/georg/Desktop/Perspectives-Magic-Leap-Order-Picking/georgiannalin.cert
     m_PrivateKeyPath: 
   luminIsChannelApp: 0
   luminVersion:

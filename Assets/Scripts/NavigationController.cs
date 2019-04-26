@@ -392,7 +392,18 @@ public class NavigationController : MonoBehaviour {
     private void pathIdSelectionTrigger() {
         setMode(OrderPickingMode.BookInfo);
         mergeArr = pr.getMergedArry();
-        selectedPathId = mergeArr[positionRound - 1, placeRound - 1];
+        
+        if(selectedPhase == 0)
+        {
+            selectedPathId = mergeArr[positionRound - 1, placeRound - 1];
+
+        } else if (selectedPhase == 1)
+        {
+            selectedPathId = mergeArr[positionRound - 1, (placeRound - 1) + 10];
+            Debug.Log((placeRound - 1) + 10);
+
+
+        }
 
         // setup the next view
         if (selectedPathId != pr.getPathId())
@@ -444,12 +455,8 @@ public class NavigationController : MonoBehaviour {
     }
 
     private void completionTrigger() {
-        selectedUserId = 0;
-        selectedPhase = 0; // 0 indicates training, 1 indicates testing
-        selectedPathId = 1;
-        selectedBookNum = 0;
-        selectedBookTag = "";
-        record_posted_book.Clear();
+        
+        
 
        
  
@@ -474,6 +481,7 @@ public class NavigationController : MonoBehaviour {
         }
         else if (selectedPhase == 1)
         {
+            Debug.Log(placeRound);
             if (placeRound == 5)
             {
                 placeRound = 0;
@@ -481,6 +489,12 @@ public class NavigationController : MonoBehaviour {
                 {
                     positionRound = 0;
                     setMode(OrderPickingMode.UserSelection);
+                    selectedUserId = 0;
+                    selectedPhase = 0; // 0 indicates training, 1 indicates testing
+                    selectedPathId = 1;
+                    selectedBookNum = 0;
+                    selectedBookTag = "";
+                    record_posted_book.Clear();
                 }
                 else
                 {

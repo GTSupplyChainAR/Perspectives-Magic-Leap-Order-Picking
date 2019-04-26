@@ -52,8 +52,8 @@
                     },
                     {
                         "book": {
-                            "title": "A Theory of Fun",
-                            "author": "Raph Koster",
+                            "title": "Location and Context-Awareness",
+                            "author": "LoCA 2006",
                             "tag": "G-1-2"
                         },
                         "location": [
@@ -219,8 +219,8 @@
                     },
                     {
                         "book": {
-                            "title": "A Theory of Fun",
-                            "author": "Raph Koster",
+                            "title": "Location and Context-Awareness",
+                            "author": "LoCA 2006",
                             "tag": "G-1-2"
                         },
                         "location": [
@@ -564,8 +564,8 @@
                         ],
                         "targetBookAndTargetBookLocation": {
                             "book": {
-                                "title": "A Theory of Fun",
-                                "author": "Raph Koster",
+                                "title": "Location and Context-Awareness",
+                                "author": "LoCA 2006",
                                 "tag": "G-1-2"
                             },
                             "location": [
@@ -3144,8 +3144,8 @@
                     },
                     {
                         "book": {
-                            "title": "A Theory of Fun",
-                            "author": "Raph Koster",
+                            "title": "Location and Context-Awareness",
+                            "author": "LoCA 2006",
                             "tag": "G-1-2"
                         },
                         "location": [
@@ -3245,8 +3245,8 @@
                     },
                     {
                         "book": {
-                            "title": "A Theory of Fun",
-                            "author": "Raph Koster",
+                            "title": "Location and Context-Awareness",
+                            "author": "LoCA 2006",
                             "tag": "G-1-2"
                         },
                         "location": [
@@ -3569,8 +3569,8 @@
                         ],
                         "targetBookAndTargetBookLocation": {
                             "book": {
-                                "title": "A Theory of Fun",
-                                "author": "Raph Koster",
+                                "title": "Location and Context-Awareness",
+                                "author": "LoCA 2006",
                                 "tag": "G-1-2"
                             },
                             "location": [
@@ -3720,8 +3720,8 @@
                     },
                     {
                         "book": {
-                            "title": "Starplex",
-                            "author": "Robert J. Sawyer",
+                            "title": "Conference Abstracts and Applications",
+                            "author": "SIGGRAPH 2000",
                             "tag": "F-2-1"
                         },
                         "location": [
@@ -3832,8 +3832,8 @@
                     },
                     {
                         "book": {
-                            "title": "Starplex",
-                            "author": "Robert J. Sawyer",
+                            "title": "Conference Abstracts and Applications",
+                            "author": "SIGGRAPH 2000",
                             "tag": "F-2-1"
                         },
                         "location": [
@@ -4114,8 +4114,8 @@
                         ],
                         "targetBookAndTargetBookLocation": {
                             "book": {
-                                "title": "Starplex",
-                                "author": "Robert J. Sawyer",
+                                "title": "Conference Abstracts and Applications",
+                                "author": "SIGGRAPH 2000",
                                 "tag": "F-2-1"
                             },
                             "location": [
@@ -4971,8 +4971,8 @@
                     },
                     {
                         "book": {
-                            "title": "Starplex",
-                            "author": "Robert J. Sawyer",
+                            "title": "Conference Abstracts and Applications",
+                            "author": "SIGGRAPH 2000",
                             "tag": "F-2-1"
                         },
                         "location": [
@@ -5017,8 +5017,8 @@
                     },
                     {
                         "book": {
-                            "title": "Starplex",
-                            "author": "Robert J. Sawyer",
+                            "title": "Conference Abstracts and Applications",
+                            "author": "SIGGRAPH 2000",
                             "tag": "F-2-1"
                         },
                         "location": [
@@ -5228,8 +5228,8 @@
                         ],
                         "targetBookAndTargetBookLocation": {
                             "book": {
-                                "title": "Starplex",
-                                "author": "Robert J. Sawyer",
+                                "title": "Conference Abstracts and Applications",
+                                "author": "SIGGRAPH 2000",
                                 "tag": "F-2-1"
                             },
                             "location": [
@@ -5481,8 +5481,8 @@
                 "unorderedBooksAndLocations": [
                     {
                         "book": {
-                            "title": "ACM Computing Surveys",
-                            "author": "Muntz, Shankar, et. al",
+                            "title": "3D Studio Max",
+                            "author": "Kinetix",
                             "tag": "E-2-5"
                         },
                         "location": [
@@ -5615,8 +5615,8 @@
                     },
                     {
                         "book": {
-                            "title": "ACM Computing Surveys",
-                            "author": "Muntz, Shankar, et. al",
+                            "title": "3D Studio Max",
+                            "author": "Kinetix",
                             "tag": "E-2-5"
                         },
                         "location": [
@@ -5797,8 +5797,8 @@
                         ],
                         "targetBookAndTargetBookLocation": {
                             "book": {
-                                "title": "ACM Computing Surveys",
-                                "author": "Muntz, Shankar, et. al",
+                                "title": "3D Studio Max",
+                                "author": "Kinetix",
                                 "tag": "E-2-5"
                             },
                             "location": [
@@ -6124,8 +6124,8 @@
                     },
                     {
                         "book": {
-                            "title": "Hands-On Machine Learning with Scikit -Learn & TensorFlow",
-                            "author": "Aurelien Geron",
+                            "title": "Human Factors in Computing Systems",
+                            "author": "ACM CHI '95",
                             "tag": "C-2-1"
                         },
                         "location": [
@@ -6135,8 +6135,8 @@
                     },
                     {
                         "book": {
-                            "title": "Starplex",
-                            "author": "Robert J. Sawyer",
+                            "title": "Conference Abstracts and Applications",
+                            "author": "SIGGRAPH 2000",
                             "tag": "F-2-1"
                         },
                         "location": [
@@ -6168,8 +6168,8 @@
                     },
                     {
                         "book": {
-                            "title": "Artificial Intelligence a Modern Approach",
-                            "author": "Russell & Norvig",
+                            "title": "Systems Journal",
+                            "author": "MIT Media Laboratory",
                             "tag": "D-2-1"
                         },
                         "location": [
@@ -6203,8 +6203,8 @@
                 "orderedBooksAndLocations": [
                     {
                         "book": {
-                            "title": "Starplex",
-                            "author": "Robert J. Sawyer",
+                            "title": "Conference Abstracts and Applications",
+                            "author": "SIGGRAPH 2000",
                             "tag": "F-2-1"
                         },
                         "location": [
@@ -6236,8 +6236,8 @@
                     },
                     {
                         "book": {
-                            "title": "Artificial Intelligence a Modern Approach",
-                            "author": "Russell & Norvig",
+                            "title": "Systems Journal",
+                            "author": "MIT Media Laboratory",
                             "tag": "D-2-1"
                         },
                         "location": [
@@ -6269,8 +6269,8 @@
                     },
                     {
                         "book": {
-                            "title": "Hands-On Machine Learning with Scikit -Learn & TensorFlow",
-                            "author": "Aurelien Geron",
+                            "title": "Human Factors in Computing Systems",
+                            "author": "ACM CHI '95",
                             "tag": "C-2-1"
                         },
                         "location": [
@@ -6343,8 +6343,8 @@
                         ],
                         "targetBookAndTargetBookLocation": {
                             "book": {
-                                "title": "Starplex",
-                                "author": "Robert J. Sawyer",
+                                "title": "Conference Abstracts and Applications",
+                                "author": "SIGGRAPH 2000",
                                 "tag": "F-2-1"
                             },
                             "location": [
@@ -6447,8 +6447,8 @@
                         ],
                         "targetBookAndTargetBookLocation": {
                             "book": {
-                                "title": "Artificial Intelligence a Modern Approach",
-                                "author": "Russell & Norvig",
+                                "title": "Systems Journal",
+                                "author": "MIT Media Laboratory",
                                 "tag": "D-2-1"
                             },
                             "location": [
@@ -6551,8 +6551,8 @@
                         ],
                         "targetBookAndTargetBookLocation": {
                             "book": {
-                                "title": "Hands-On Machine Learning with Scikit -Learn & TensorFlow",
-                                "author": "Aurelien Geron",
+                                "title": "Human Factors in Computing Systems",
+                                "author": "ACM CHI '95",
                                 "tag": "C-2-1"
                             },
                             "location": [
@@ -6766,8 +6766,8 @@
                     },
                     {
                         "book": {
-                            "title": "A Theory of Fun",
-                            "author": "Raph Koster",
+                            "title": "Location and Context-Awareness",
+                            "author": "LoCA 2006",
                             "tag": "G-1-2"
                         },
                         "location": [
@@ -6900,8 +6900,8 @@
                     },
                     {
                         "book": {
-                            "title": "A Theory of Fun",
-                            "author": "Raph Koster",
+                            "title": "Location and Context-Awareness",
+                            "author": "LoCA 2006",
                             "tag": "G-1-2"
                         },
                         "location": [
@@ -7224,8 +7224,8 @@
                         ],
                         "targetBookAndTargetBookLocation": {
                             "book": {
-                                "title": "A Theory of Fun",
-                                "author": "Raph Koster",
+                                "title": "Location and Context-Awareness",
+                                "author": "LoCA 2006",
                                 "tag": "G-1-2"
                             },
                             "location": [
@@ -7320,8 +7320,8 @@
                     },
                     {
                         "book": {
-                            "title": "Starplex",
-                            "author": "Robert J. Sawyer",
+                            "title": "Conference Abstracts and Applications",
+                            "author": "SIGGRAPH 2000",
                             "tag": "F-2-1"
                         },
                         "location": [
@@ -7498,8 +7498,8 @@
                     },
                     {
                         "book": {
-                            "title": "Starplex",
-                            "author": "Robert J. Sawyer",
+                            "title": "Conference Abstracts and Applications",
+                            "author": "SIGGRAPH 2000",
                             "tag": "F-2-1"
                         },
                         "location": [
@@ -7801,8 +7801,8 @@
                         ],
                         "targetBookAndTargetBookLocation": {
                             "book": {
-                                "title": "Starplex",
-                                "author": "Robert J. Sawyer",
+                                "title": "Conference Abstracts and Applications",
+                                "author": "SIGGRAPH 2000",
                                 "tag": "F-2-1"
                             },
                             "location": [
@@ -8615,8 +8615,8 @@
                     },
                     {
                         "book": {
-                            "title": "Hands-On Machine Learning with Scikit -Learn & TensorFlow",
-                            "author": "Aurelien Geron",
+                            "title": "Human Factors in Computing Systems",
+                            "author": "ACM CHI '95",
                             "tag": "C-2-1"
                         },
                         "location": [
@@ -8716,8 +8716,8 @@
                     },
                     {
                         "book": {
-                            "title": "Hands-On Machine Learning with Scikit -Learn & TensorFlow",
-                            "author": "Aurelien Geron",
+                            "title": "Human Factors in Computing Systems",
+                            "author": "ACM CHI '95",
                             "tag": "C-2-1"
                         },
                         "location": [
@@ -9019,8 +9019,8 @@
                         ],
                         "targetBookAndTargetBookLocation": {
                             "book": {
-                                "title": "Hands-On Machine Learning with Scikit -Learn & TensorFlow",
-                                "author": "Aurelien Geron",
+                                "title": "Human Factors in Computing Systems",
+                                "author": "ACM CHI '95",
                                 "tag": "C-2-1"
                             },
                             "location": [
@@ -9745,8 +9745,8 @@
                 "unorderedBooksAndLocations": [
                     {
                         "book": {
-                            "title": "A Theory of Fun",
-                            "author": "Raph Koster",
+                            "title": "Location and Context-Awareness",
+                            "author": "LoCA 2006",
                             "tag": "G-1-2"
                         },
                         "location": [
@@ -9778,8 +9778,8 @@
                     },
                     {
                         "book": {
-                            "title": "Starplex",
-                            "author": "Robert J. Sawyer",
+                            "title": "Conference Abstracts and Applications",
+                            "author": "SIGGRAPH 2000",
                             "tag": "F-2-1"
                         },
                         "location": [
@@ -9833,8 +9833,8 @@
                     },
                     {
                         "book": {
-                            "title": "Bootstrap Methods and their Application",
-                            "author": "Davison, Hinkley",
+                            "title": "1990 International Conference on Supercomputing",
+                            "author": "ACM Sigarch",
                             "tag": "C-2-3"
                         },
                         "location": [
@@ -9890,8 +9890,8 @@
                     },
                     {
                         "book": {
-                            "title": "Bootstrap Methods and their Application",
-                            "author": "Davison, Hinkley",
+                            "title": "1990 International Conference on Supercomputing",
+                            "author": "ACM Sigarch",
                             "tag": "C-2-3"
                         },
                         "location": [
@@ -9945,8 +9945,8 @@
                     },
                     {
                         "book": {
-                            "title": "Starplex",
-                            "author": "Robert J. Sawyer",
+                            "title": "Conference Abstracts and Applications",
+                            "author": "SIGGRAPH 2000",
                             "tag": "F-2-1"
                         },
                         "location": [
@@ -9956,8 +9956,8 @@
                     },
                     {
                         "book": {
-                            "title": "A Theory of Fun",
-                            "author": "Raph Koster",
+                            "title": "Location and Context-Awareness",
+                            "author": "LoCA 2006",
                             "tag": "G-1-2"
                         },
                         "location": [
@@ -10093,8 +10093,8 @@
                         ],
                         "targetBookAndTargetBookLocation": {
                             "book": {
-                                "title": "Bootstrap Methods and their Application",
-                                "author": "Davison, Hinkley",
+                                "title": "1990 International Conference on Supercomputing",
+                                "author": "ACM Sigarch",
                                 "tag": "C-2-3"
                             },
                             "location": [
@@ -10269,8 +10269,8 @@
                         ],
                         "targetBookAndTargetBookLocation": {
                             "book": {
-                                "title": "Starplex",
-                                "author": "Robert J. Sawyer",
+                                "title": "Conference Abstracts and Applications",
+                                "author": "SIGGRAPH 2000",
                                 "tag": "F-2-1"
                             },
                             "location": [
@@ -10301,8 +10301,8 @@
                         ],
                         "targetBookAndTargetBookLocation": {
                             "book": {
-                                "title": "A Theory of Fun",
-                                "author": "Raph Koster",
+                                "title": "Location and Context-Awareness",
+                                "author": "LoCA 2006",
                                 "tag": "G-1-2"
                             },
                             "location": [
@@ -10387,8 +10387,8 @@
                     },
                     {
                         "book": {
-                            "title": "ACM Computing Surveys",
-                            "author": "Muntz, Shankar, et. al",
+                            "title": "3D Studio Max",
+                            "author": "Kinetix",
                             "tag": "E-2-5"
                         },
                         "location": [
@@ -10499,8 +10499,8 @@
                     },
                     {
                         "book": {
-                            "title": "ACM Computing Surveys",
-                            "author": "Muntz, Shankar, et. al",
+                            "title": "3D Studio Max",
+                            "author": "Kinetix",
                             "tag": "E-2-5"
                         },
                         "location": [
@@ -10702,8 +10702,8 @@
                         ],
                         "targetBookAndTargetBookLocation": {
                             "book": {
-                                "title": "ACM Computing Surveys",
-                                "author": "Muntz, Shankar, et. al",
+                                "title": "3D Studio Max",
+                                "author": "Kinetix",
                                 "tag": "E-2-5"
                             },
                             "location": [
@@ -11051,8 +11051,8 @@
                     },
                     {
                         "book": {
-                            "title": "Causality",
-                            "author": "Judea Pearl",
+                            "title": "Systems Engineering Models of Human-Machine Interaction",
+                            "author": "William B. Rouse",
                             "tag": "G-3-3"
                         },
                         "location": [
@@ -11119,8 +11119,8 @@
                     },
                     {
                         "book": {
-                            "title": "Causality",
-                            "author": "Judea Pearl",
+                            "title": "Systems Engineering Models of Human-Machine Interaction",
+                            "author": "William B. Rouse",
                             "tag": "G-3-3"
                         },
                         "location": [
@@ -11351,8 +11351,8 @@
                         ],
                         "targetBookAndTargetBookLocation": {
                             "book": {
-                                "title": "Causality",
-                                "author": "Judea Pearl",
+                                "title": "Systems Engineering Models of Human-Machine Interaction",
+                                "author": "William B. Rouse",
                                 "tag": "G-3-3"
                             },
                             "location": [
