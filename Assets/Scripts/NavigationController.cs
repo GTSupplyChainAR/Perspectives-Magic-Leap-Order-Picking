@@ -112,11 +112,11 @@ public class NavigationController : MonoBehaviour {
 
     private IEnumerator DebugClickC(int numClicks) {
         // initial delay
-        yield return new WaitForSeconds(1.0f);
+        yield return new WaitForSeconds(0.5f);
 
         for (int i = 0; i < numClicks; i++) {
             OnTriggerDown(0, 0);
-            yield return new WaitForSeconds(0.001f);
+            yield return new WaitForSeconds(0.0001f);
         }
         yield return null;
     }
@@ -219,6 +219,10 @@ public class NavigationController : MonoBehaviour {
     }
 
     private void postdata() {
+        if (LightspeedMode) {
+            return;
+        }
+
         WWWForm form = new WWWForm();
         form.AddField("userId", selectedUserId);
         form.AddField("phase", selectedPhase);
