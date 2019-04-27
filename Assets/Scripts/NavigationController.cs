@@ -46,6 +46,7 @@ public class NavigationController : MonoBehaviour {
 
     // active view
     GameObject currentActiveView;
+    GameObject restorePrompt;
 
     enum OrderPickingMode {
         UserSelection,
@@ -80,7 +81,13 @@ public class NavigationController : MonoBehaviour {
         shelfView.SetActive(false);
         completionView = GameObject.Find("Completion View");
         completionView.SetActive(false);
-        
+
+        // Prompt restore
+        if (PlayerPrefs.HasKey("userId")) {
+            restorePrompt = GameObject.Find("Restore Prompt");
+            restorePrompt.SetActive(true);
+        }
+
         // Start with user selection
         setMode(OrderPickingMode.UserSelection);
 
@@ -129,14 +136,16 @@ public class NavigationController : MonoBehaviour {
     //Bumper
     void OnButtonDown(byte controller_id, MLInputControllerButton button)
     {
-        if (button == MLInputControllerButton.Bumper)
-        {
-            OnBumper();
-            Debug.Log("-- ON BUMPER --");
-        }
+        OnBumper();
+        Debug.Log("-- ON BUMPER --");
     }
 
     void OnBumper() {
+        if (restorePrompt.active) {
+            restorePrompt.SetActive(false);
+            return;
+        }
+
         switch (currentMode) {
             case OrderPickingMode.UserSelection:
                 userSelectionBumper();
@@ -190,6 +199,12 @@ public class NavigationController : MonoBehaviour {
 
     private void OnTriggerDown(byte controller_id, float intensity)
     {
+        if (restorePrompt.active) {
+            loaddata();
+            restorePrompt.SetActive(false);
+            return;
+        }
+
         switch (currentMode) {
             case OrderPickingMode.UserSelection:
                 userSelectionTrigger();
@@ -223,6 +238,8 @@ public class NavigationController : MonoBehaviour {
             return;
         }
 
+        savedata();
+
         WWWForm form = new WWWForm();
         form.AddField("userId", selectedUserId);
         form.AddField("phase", selectedPhase);
@@ -231,8 +248,33 @@ public class NavigationController : MonoBehaviour {
         form.AddField("bookTag", selectedBookTag);
         form.AddField("device", 2);
         form.AddField("viewPosition", 1);
+        Debug.Log(selectedUserId);
+        Debug.Log(selectedPhase);
+        Debug.Log(selectedPathId);
+        Debug.Log(selectedBookTag);
         StartCoroutine(Upload(form));
     }
+
+    private void savedata() {
+        PlayerPrefs.SetInt("userId", selectedUserId);
+        PlayerPrefs.SetInt("phase", selectedPhase);
+        PlayerPrefs.SetInt("positionRound", positionRound);
+        PlayerPrefs.SetInt("placeRound", placeRound);
+    }
+
+    private void loaddata() {
+        selectedUserId = PlayerPrefs.GetInt("userId");
+        selectedPhase = PlayerPrefs.GetInt("phase");
+        positionRound = PlayerPrefs.GetInt("positionRound");
+        placeRound = PlayerPrefs.GetInt("placeRound");
+
+        if (selectedPathId > 0) {
+            pathIdSelectionTrigger();
+        } else {
+            Debug.Log("Ignoring RESTORE b/c selectedPathId was read as 0!");
+        }
+    }
+
     private IEnumerator Upload(WWWForm form) {
         var download = UnityWebRequest.Post(url, form);
         yield return download.SendWebRequest();
@@ -495,9 +537,9 @@ public class NavigationController : MonoBehaviour {
 
     private void completionTrigger() {
         
-        
-
-       
+        selectedBookNum = 0;
+        selectedBookTag = "";
+        record_posted_book.Clear();
  
         if (selectedPhase == 0)
         {
@@ -530,10 +572,8 @@ public class NavigationController : MonoBehaviour {
                     setMode(OrderPickingMode.UserSelection);
                     selectedUserId = 0;
                     selectedPhase = 0; // 0 indicates training, 1 indicates testing
-                    selectedPathId = 1;
-                    selectedBookNum = 0;
-                    selectedBookTag = "";
-                    record_posted_book.Clear();
+                    //selectedPathId = 1;
+                    
                 }
                 else
                 {
@@ -593,7 +633,7 @@ public class NavigationController : MonoBehaviour {
         if (Input.GetMouseButtonDown(0)) {
             OnTriggerDown(0, 0);
         }
-        else if (Input.GetMouseButtonDown(1)) {
+        if (Input.GetKeyDown(KeyCode.B)) {
             OnBumper();
         }
     }
