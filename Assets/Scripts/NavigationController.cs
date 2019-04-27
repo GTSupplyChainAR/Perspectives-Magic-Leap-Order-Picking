@@ -14,23 +14,23 @@ public class NavigationController : MonoBehaviour {
 
     //MLInputController
     //Bumper for back, trigger for select
-    private const float _triggerThreshold = 0.2f;
+    public const float _triggerThreshold = 0.2f;
     private MLInputController _controller;
 
     // data model;
-    private int selectedUserId = 0;
-    private int selectedPhase = 0; // 0 indicates training, 1 indicates testing
-    private int selectedPathId = 1;
-    private int selectedBookNum = 0;
-    private string selectedBookTag = "";
-    private int[,] mergeArr = new int[4, 15];
-    private int positionRound = 0; //0-4 keep track of how many positions the user has done
-    private int placeRound = 0;
+    public int selectedUserId = 0;
+    public int selectedPhase = 0; // 0 indicates training, 1 indicates testing
+    public int selectedPathId = 1;
+    public int selectedBookNum = 0;
+    public string selectedBookTag = "";
+    public int[,] mergeArr = new int[4, 15];
+    public int positionRound = 0; //0-4 keep track of how many positions the user has done
+    public int placeRound = 0;
 
 
     private Dictionary<int, string> record_posted_book;
     private PathReader pr;
-    private const string url = "https://eyegaze4605api.herokuapp.com/api/userData";
+    public const string url = "https://eyegaze4605api.herokuapp.com/api/userData";
     /* view style config
     private Color selected_color = Color.blue;
     private Color unselected_color = Color.white;*/
