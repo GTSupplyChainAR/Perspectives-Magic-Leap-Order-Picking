@@ -368,6 +368,34 @@ public class NavigationController : MonoBehaviour {
         // unused
     }
 
+    private void keyAltInput() {
+        if (Input.GetKeyDown(KeyCode.DownArrow)) {
+            switch (currentMode) {
+                case OrderPickingMode.UserSelection:
+                    userSelectionView.GetComponent<UserSelectionView>().selectNext();
+                    break;
+                case OrderPickingMode.PhaseSelection:
+                    phaseSelectionView.GetComponent<PhaseSelectionView>().selectTesting();
+                    break;
+                default:
+                    break;
+            }
+            
+        }
+        else if (Input.GetKeyDown(KeyCode.UpArrow)) {
+            switch (currentMode) {
+                case OrderPickingMode.UserSelection:
+                    userSelectionView.GetComponent<UserSelectionView>().selectLast();
+                    break;
+                case OrderPickingMode.PhaseSelection:
+                    phaseSelectionView.GetComponent<PhaseSelectionView>().selectTraining();
+                    break;
+                default:
+                    break;
+            }
+        }
+    }
+
     private void userSelectionControl(MLInputControllerTouchpadGesture touchpad_gesture) {
         //Debug.Log("V " + Input.GetAxis("Vertical"));
         //Debug.Log("H " + Input.GetAxis("Horizontal"));
@@ -376,7 +404,6 @@ public class NavigationController : MonoBehaviour {
         if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
         {
             userSelectionView.GetComponent<UserSelectionView>().selectNext();
-
         }
 
         else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
@@ -648,6 +675,8 @@ public class NavigationController : MonoBehaviour {
         if (Input.GetKeyDown(KeyCode.B)) {
             OnBumper();
         }
+        // on desktop only
+        keyAltInput();
     }
 }
 
