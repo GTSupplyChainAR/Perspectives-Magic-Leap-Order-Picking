@@ -83,10 +83,8 @@ public class NavigationController : MonoBehaviour {
         completionView.SetActive(false);
 
         // Prompt restore
-        if (PlayerPrefs.HasKey("userId")) {
-            restorePrompt = GameObject.Find("Restore Prompt");
-            restorePrompt.SetActive(true);
-        }
+        restorePrompt = GameObject.Find("Restore Prompt");
+        restorePrompt.SetActive(true);
 
         // Start with user selection
         setMode(OrderPickingMode.UserSelection);
@@ -105,12 +103,23 @@ public class NavigationController : MonoBehaviour {
             DebugClick(numClicks);
         }
 
+        StartCoroutine(Yolo());
+
         //controller
         MLInput.Start();
         _controller = MLInput.GetController(MLInput.Hand.Right);
         MLInput.OnControllerButtonDown += OnButtonDown;
         MLInput.OnControllerTouchpadGestureStart += OnGestureStart;
         MLInput.OnTriggerDown += OnTriggerDown;
+    }
+
+    private IEnumerator Yolo() {
+        Debug.Log("yolo 1");
+        yield return new WaitForSeconds(3.0f);
+        Debug.Log("yolo 2");
+        Debug.Log(restorePrompt);
+        restorePrompt.SetActive(false);
+        Debug.Log("yolo 3");
     }
 
     private void DebugClick(int numClicks) {
@@ -136,15 +145,18 @@ public class NavigationController : MonoBehaviour {
     //Bumper
     void OnButtonDown(byte controller_id, MLInputControllerButton button)
     {
-        OnBumper();
-        Debug.Log("-- ON BUMPER --");
+        if (button == MLInputControllerButton.Bumper)
+        {
+            OnBumper();
+            Debug.Log("-- ON BUMPER --");
+        }
     }
 
     void OnBumper() {
-        if (restorePrompt.active) {
+        /*if (restorePrompt.active) {
             restorePrompt.SetActive(false);
             return;
-        }
+        }*/
 
         switch (currentMode) {
             case OrderPickingMode.UserSelection:
