@@ -10,6 +10,8 @@ using System.Threading;
 
 public class NavigationController : MonoBehaviour {
 
+    public bool LightspeedMode = false;
+
     //MLInputController
     //Bumper for back, trigger for select
     private const float _triggerThreshold = 0.2f;
@@ -82,12 +84,41 @@ public class NavigationController : MonoBehaviour {
         // Start with user selection
         setMode(OrderPickingMode.UserSelection);
 
+        // select user
+        // select phase
+        // select view position (initial)
+        // 3 positions
+        //      5 paths
+        //          1 start per path
+        //          10 clicks per path
+        //          1 quit per path
+        //      select view position (new)
+        int numClicks = 3 + 3 * ((5 * 12) + 1);
+        if (LightspeedMode) {
+            DebugClick(numClicks);
+        }
+
         //controller
         MLInput.Start();
         _controller = MLInput.GetController(MLInput.Hand.Right);
         MLInput.OnControllerButtonDown += OnButtonDown;
         MLInput.OnControllerTouchpadGestureStart += OnGestureStart;
         MLInput.OnTriggerDown += OnTriggerDown;
+    }
+
+    private void DebugClick(int numClicks) {
+        StartCoroutine(DebugClickC(numClicks));
+    }
+
+    private IEnumerator DebugClickC(int numClicks) {
+        // initial delay
+        yield return new WaitForSeconds(1.0f);
+
+        for (int i = 0; i < numClicks; i++) {
+            OnTriggerDown(0, 0);
+            yield return new WaitForSeconds(0.001f);
+        }
+        yield return null;
     }
 
     private void OnDestroy()
