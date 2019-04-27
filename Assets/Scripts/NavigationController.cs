@@ -203,7 +203,8 @@ public class NavigationController : MonoBehaviour {
         yield return download.SendWebRequest();
         if (download.isNetworkError || download.isHttpError)
         {
-
+            Debug.LogError("HTTP UPLOAD ERROR:");
+            Debug.LogError(download.error);
         }
         else {
 
@@ -413,6 +414,9 @@ public class NavigationController : MonoBehaviour {
             record_posted_book.Clear();
         }
         bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
+
+        selectedBookTag = "A-0-0";
+        postdata();
     }
 
 
