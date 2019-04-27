@@ -84,16 +84,16 @@ public class NavigationController : MonoBehaviour {
         // Start with user selection
         setMode(OrderPickingMode.UserSelection);
 
-        // select user
-        // select phase
-        // select view position (initial)
-        // 3 positions
+        // step 1. select user
+        // step 2. select phase
+        // step 3. select view position (initial)
+        // 4 positions
         //      5 paths
         //          1 start per path
         //          10 clicks per path
         //          1 quit per path
         //      select view position (new)
-        int numClicks = 3 + 3 * ((5 * 12) + 1);
+        int numClicks = 3 + 4 * ((5 * 12) + 1);
         if (LightspeedMode) {
             DebugClick(numClicks);
         }
