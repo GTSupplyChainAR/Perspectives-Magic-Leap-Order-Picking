@@ -52,13 +52,14 @@ public class PathReader
     public void setUserId(int id) {
         userId = id;
         participant = reader.participants.participants[userId];
-        Debug.Log("P::" + participant);
+        //Debug.Log("P::" + participant);
 
         // Merge corresponding (at each index; len = 4) training and testing arrays
         for (int i = 0; i < 4; i++) {
             // Add training
             for (int k = 0; k < 5; k++) {
                 merged[i, k] = participant.trainingPathOrder[i].pathIds[k];
+                Debug.Log("Path: " + participant.trainingPathOrder[i].pathIds[k]);
             }
 
             // Add testing

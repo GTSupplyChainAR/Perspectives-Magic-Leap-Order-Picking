@@ -64,8 +64,8 @@ public class NavigationController : MonoBehaviour {
     void Start() {
         // data model init
         pr = new PathReader(Path.Combine(Application.streamingAssetsPath, "pick-paths.json"));
-        pr.setUserId(selectedUserId);
         record_posted_book = new Dictionary<int, string>();
+        pr.setUserId(selectedUserId);
         userSelectionView = GameObject.Find("User Selection View");
         userSelectionView.SetActive(false);
         phaseSelectionView = GameObject.Find("Phase Selection View");
@@ -114,12 +114,12 @@ public class NavigationController : MonoBehaviour {
     }
 
     private IEnumerator Yolo() {
-        Debug.Log("yolo 1");
+        //Debug.Log("yolo 1");
         yield return new WaitForSeconds(3.0f);
-        Debug.Log("yolo 2");
-        Debug.Log(restorePrompt);
+        //Debug.Log("yolo 2");
+        //Debug.Log(restorePrompt);
         restorePrompt.SetActive(false);
-        Debug.Log("yolo 3");
+        //Debug.Log("yolo 3");
     }
 
     private void DebugClick(int numClicks) {
@@ -281,6 +281,7 @@ public class NavigationController : MonoBehaviour {
         placeRound = PlayerPrefs.GetInt("placeRound");
 
         if (selectedPathId > 0) {
+            pr.setUserId(selectedUserId);
             pathIdSelectionTrigger();
         } else {
             Debug.Log("Ignoring RESTORE b/c selectedPathId was read as 0!");
@@ -414,6 +415,8 @@ public class NavigationController : MonoBehaviour {
 
     private void userSelectionTrigger() {
         selectedUserId = userSelectionView.GetComponent<UserSelectionView>().getSelectedUserId();
+        pr.setUserId(selectedUserId);
+        //record_posted_book = new Dictionary<int, string>();
         setMode(OrderPickingMode.PhaseSelection);
         // clear next selection
         selectedPhase = 0;
