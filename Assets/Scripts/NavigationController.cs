@@ -42,7 +42,7 @@ public class NavigationController : MonoBehaviour {
     GameObject bookInfoView;
     GameObject shelfView;
     GameObject completionView;
-    GameObject placementView;
+    //GameObject placementView;
 
     // active view
     GameObject currentActiveView;
@@ -55,7 +55,7 @@ public class NavigationController : MonoBehaviour {
         BookInfo,
         Shelf,
         Completion,
-        Placement
+        //Placement
     }
 
     private OrderPickingMode currentMode;
@@ -76,8 +76,8 @@ public class NavigationController : MonoBehaviour {
         bookInfoView.SetActive(false);
         shelfView = GameObject.Find("Shelf View");
         shelfView.GetComponent<ShelfView>().init();
-        placementView = GameObject.Find("Placement Selection View");
-        placementView.SetActive(false);
+        //placementView = GameObject.Find("Placement Selection View");
+        //placementView.SetActive(false);
         shelfView.SetActive(false);
         completionView = GameObject.Find("Completion View");
         completionView.SetActive(false);
@@ -200,9 +200,9 @@ public class NavigationController : MonoBehaviour {
             case OrderPickingMode.Completion:
                 completionControl(touchpad_gesture);
                 break;
-            case OrderPickingMode.Placement:
-                placementSelectionControl(touchpad_gesture);
-                break;
+            //case OrderPickingMode.Placement:
+            //    placementSelectionControl(touchpad_gesture);
+            //    break;
             default:
                 // do nothing
                 break;
@@ -236,9 +236,9 @@ public class NavigationController : MonoBehaviour {
             case OrderPickingMode.Completion:
                 completionTrigger();
                 break;
-            case OrderPickingMode.Placement:
-                placementSelectionTrigger();
-                break;
+            //case OrderPickingMode.Placement:
+            //    placementSelectionTrigger();
+            //    break;
             default:
                 // do nothing
                 break;
@@ -346,7 +346,7 @@ public class NavigationController : MonoBehaviour {
             moveView(bookInfoView, vec);
             moveView(shelfView, vec);
             moveView(completionView, vec);
-            moveView(placementView, vec);
+            //moveView(placementView, vec);
         }
     }
 
@@ -443,12 +443,15 @@ public class NavigationController : MonoBehaviour {
 
     private void phaseSelectionTrigger() {
         selectedPhase = phaseSelectionView.GetComponent<PhaseSelectionView>().getSelectedPhase();
-        setMode(OrderPickingMode.Placement);
+        //setMode(OrderPickingMode.Placement);
+        setMode(OrderPickingMode.PathIdSelection);
+        // setup next selection        
+        pathIdSelectionView.GetComponent<PathIdSelectionView>().setPhase(selectedPhase);
     }
 
     private void phaseSelectionBumper() {
         // go back to user selection
-        setMode(OrderPickingMode.UserSelection);
+        //setMode(OrderPickingMode.UserSelection);
     }
 
     private void setMode(OrderPickingMode newMode) {
@@ -479,10 +482,10 @@ public class NavigationController : MonoBehaviour {
             case OrderPickingMode.Completion:
                 newActiveView = completionView;
                 break;
-            case OrderPickingMode.Placement:
-                positionRound++;
-                newActiveView = placementView;
-                break;
+            //case OrderPickingMode.Placement:
+            //    positionRound++;
+            //    newActiveView = placementView;
+            //    break;
             default:
                 // use current
                 newActiveView = currentActiveView;
@@ -594,7 +597,7 @@ public class NavigationController : MonoBehaviour {
                     setMode(OrderPickingMode.UserSelection);
                 } else
                 {
-                setMode(OrderPickingMode.Placement);
+                //setMode(OrderPickingMode.Placement);
 
                 }
             } else
@@ -619,7 +622,7 @@ public class NavigationController : MonoBehaviour {
                 }
                 else
                 {
-                    setMode(OrderPickingMode.Placement);
+                   // setMode(OrderPickingMode.Placement);
                 }
             }
             else
