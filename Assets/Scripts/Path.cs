@@ -59,7 +59,7 @@ public class PathReader
             // Add training
             for (int k = 0; k < 5; k++) {
                 merged[i, k] = participant.trainingPathOrder[i].pathIds[k];
-                Debug.Log("Path: " + participant.trainingPathOrder[i].pathIds[k]);
+                //Debug.Log("Path: " + participant.trainingPathOrder[i].pathIds[k]);
             }
 
             // Add testing
