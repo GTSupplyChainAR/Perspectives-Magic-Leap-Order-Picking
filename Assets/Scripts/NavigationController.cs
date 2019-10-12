@@ -26,6 +26,7 @@ public class NavigationController : MonoBehaviour {
     public int[,] mergeArr = new int[4, 15];
     public int positionRound = 0; //0-4 keep track of how many positions the user has done
     public int placeRound = 0;
+    public String device = "Magic Leap";
 
 
     private Dictionary<int, string> record_posted_book;
@@ -43,6 +44,9 @@ public class NavigationController : MonoBehaviour {
     GameObject shelfView;
     GameObject completionView;
     //GameObject placementView;
+
+    //Sleeptime
+    private int sleepTime = 250;
 
     // active view
     GameObject currentActiveView;
@@ -82,12 +86,12 @@ public class NavigationController : MonoBehaviour {
         completionView = GameObject.Find("Completion View");
         completionView.SetActive(false);
 
-        // Prompt restore
-        restorePrompt = GameObject.Find("Restore Prompt");
-        restorePrompt.SetActive(true);
-
         // Start with user selection
         setMode(OrderPickingMode.UserSelection);
+
+        /*// Prompt restore
+        restorePrompt = GameObject.Find("Restore Prompt");
+        restorePrompt.SetActive(true);
 
         // step 1. select user
         // step 2. select phase
@@ -106,13 +110,14 @@ public class NavigationController : MonoBehaviour {
         StartCoroutine(Yolo());
 
         //controller
-        MLInput.Start();
-        _controller = MLInput.GetController(MLInput.Hand.Right);
-        MLInput.OnControllerButtonDown += OnButtonDown;
-        MLInput.OnControllerTouchpadGestureStart += OnGestureStart;
-        MLInput.OnTriggerDown += OnTriggerDown;
+        //MLInput.Start();
+        //_controller = MLInput.GetController(MLInput.Hand.Right);
+        //MLInput.OnControllerButtonDown += OnButtonDown;
+        //MLInput.OnControllerTouchpadGestureStart += OnGestureStart;
+        //MLInput.OnTriggerDown += OnTriggerDown; */
     }
 
+    /*
     private IEnumerator Yolo() {
         //Debug.Log("yolo 1");
         yield return new WaitForSeconds(3.0f);
@@ -131,7 +136,7 @@ public class NavigationController : MonoBehaviour {
         yield return new WaitForSeconds(0.5f);
 
         for (int i = 0; i < numClicks; i++) {
-            OnTriggerDown(0, 0);
+            //OnTriggerDown(0, 0);
             yield return new WaitForSeconds(0.0001f);
         }
         yield return null;
@@ -139,24 +144,24 @@ public class NavigationController : MonoBehaviour {
 
     private void OnDestroy()
     {
-        MLInput.Stop();
+       // MLInput.Stop();
     }
 
     //Bumper
-    void OnButtonDown(byte controller_id, MLInputControllerButton button)
-    {
-        if (button == MLInputControllerButton.Bumper)
-        {
-            OnBumper();
-            Debug.Log("-- ON BUMPER --");
-        }
-    }
+    //void OnButtonDown(byte controller_id, MLInputControllerButton button)
+    //{
+    //    if (button == MLInputControllerButton.Bumper)
+     //   {
+     //       OnBumper();
+     //       Debug.Log("-- ON BUMPER --");
+     //   }
+    //}
 
-    void OnBumper() {
-        /*if (restorePrompt.active) {
+     void OnBumper() {
+        if (restorePrompt.active) {
             restorePrompt.SetActive(false);
             return;
-        }*/
+        }
 
         switch (currentMode) {
             case OrderPickingMode.UserSelection:
@@ -178,7 +183,7 @@ public class NavigationController : MonoBehaviour {
                 // do nothing
                 break;
         }
-    }
+    } 
 
     void OnGestureStart(byte controller_id, MLInputControllerTouchpadGesture touchpad_gesture) {
         switch (currentMode) {
@@ -243,12 +248,12 @@ public class NavigationController : MonoBehaviour {
                 // do nothing
                 break;
         }
-    }
+    } */
 
     private void postdata() {
-        if (LightspeedMode) {
+        /*if (LightspeedMode) {
             return;
-        }
+        }*/
 
         savedata();
 
@@ -260,10 +265,7 @@ public class NavigationController : MonoBehaviour {
         form.AddField("bookTag", selectedBookTag);
         form.AddField("device", 2);
         form.AddField("viewPosition", 1);
-        Debug.Log(selectedUserId);
-        Debug.Log(selectedPhase);
-        Debug.Log(selectedPathId);
-        Debug.Log(selectedBookTag);
+        Debug.Log(selectedUserId + ":" + selectedPhase + ":" + selectedPathId + ":" + selectedBookTag + ":" + device);
         StartCoroutine(Upload(form));
     }
 
@@ -282,7 +284,7 @@ public class NavigationController : MonoBehaviour {
 
         if (selectedPathId > 0) {
             pr.setUserId(selectedUserId);
-            pathIdSelectionTrigger();
+            //pathIdSelectionTrigger();
         } else {
             Debug.Log("Ignoring RESTORE b/c selectedPathId was read as 0!");
         }
@@ -312,7 +314,7 @@ public class NavigationController : MonoBehaviour {
     }
 
 
-    private void placementSelectionControl(MLInputControllerTouchpadGesture touchpad_gesture)
+    /*private void placementSelectionControl(MLInputControllerTouchpadGesture touchpad_gesture)
     {
         if (touchpad_gesture.Type == MLInputControllerTouchpadGestureType.Swipe)
         {
@@ -395,25 +397,41 @@ public class NavigationController : MonoBehaviour {
                     break;
             }
         }
+    } */
+
+    private void userSelectionControl() {
+        if (Input.GetKeyDown(KeyCode.H))
+        {
+            Thread.Sleep(sleepTime);
+            if (Input.GetKeyDown(KeyCode.H))
+            {
+                userSelectionView.GetComponent<UserSelectionView>().selectNext();
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            Thread.Sleep(sleepTime);
+            if (Input.GetKeyDown(KeyCode.F))
+            {
+                userSelectionView.GetComponent<UserSelectionView>().selectLast();
+            }
+        }
+        else if (Input.GetKeyDown(KeyCode.G))
+        {
+            Thread.Sleep(sleepTime);
+            if (Input.GetKeyDown(KeyCode.G))
+            {
+                selectedUserId = userSelectionView.GetComponent<UserSelectionView>().getSelectedUserId();
+                pr.setUserId(selectedUserId);
+                setMode(OrderPickingMode.PhaseSelection);
+                // clear next selection
+                selectedPhase = 0;
+                phaseSelectionView.GetComponent<PhaseSelectionView>().setPhase(selectedPhase);
+            }
+        }
     }
 
-    private void userSelectionControl(MLInputControllerTouchpadGesture touchpad_gesture) {
-        //Debug.Log("V " + Input.GetAxis("Vertical"));
-        //Debug.Log("H " + Input.GetAxis("Horizontal"));
-
-        //if (Input.GetKeyDown(KeyCode.B))
-        if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
-        {
-            userSelectionView.GetComponent<UserSelectionView>().selectNext();
-        }
-
-        else if (touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
-        {
-            userSelectionView.GetComponent<UserSelectionView>().selectLast();
-        }
-    }
-
-    private void userSelectionTrigger() {
+    /*private void userSelectionTrigger() {
         selectedUserId = userSelectionView.GetComponent<UserSelectionView>().getSelectedUserId();
         pr.setUserId(selectedUserId);
         //record_posted_book = new Dictionary<int, string>();
@@ -421,27 +439,36 @@ public class NavigationController : MonoBehaviour {
         // clear next selection
         selectedPhase = 0;
         phaseSelectionView.GetComponent<PhaseSelectionView>().setPhase(selectedPhase);
-    }
+    }*/
 
     private void userSelectionBumper() {
         // unused
     }
 
-    private void phaseSelectionControl(MLInputControllerTouchpadGesture touchpad_gesture)
+    private void phaseSelectionControl()
     {
-        //if (Input.GetKeyDown(KeyCode.B))
-        if(touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Down)
+        if (Input.GetKeyDown(KeyCode.H))
         {
             phaseSelectionView.GetComponent<PhaseSelectionView>().selectTesting();
         }
-        //else if (Input.GetKeyDown(KeyCode.D))
-        else if(touchpad_gesture.Direction == MLInputControllerTouchpadGestureDirection.Up)
+        else if (Input.GetKeyDown(KeyCode.F))
         {
             phaseSelectionView.GetComponent<PhaseSelectionView>().selectTraining();
         }
+        else if (Input.GetKeyDown(KeyCode.G))
+        {
+            selectedPhase = phaseSelectionView.GetComponent<PhaseSelectionView>().getSelectedPhase();
+            setMode(OrderPickingMode.PathIdSelection);
+            pathIdSelectionView.GetComponent<PathIdSelectionView>().setPhase(selectedPhase);
+        }
+        else if (Input.GetKeyDown(KeyCode.Backspace))
+        {
+            // go back to user selection
+            setMode(OrderPickingMode.UserSelection);
+        }
     }
 
-    private void phaseSelectionTrigger() {
+    /*private void phaseSelectionTrigger() {
         selectedPhase = phaseSelectionView.GetComponent<PhaseSelectionView>().getSelectedPhase();
         //setMode(OrderPickingMode.Placement);
         setMode(OrderPickingMode.PathIdSelection);
@@ -452,7 +479,7 @@ public class NavigationController : MonoBehaviour {
     private void phaseSelectionBumper() {
         // go back to user selection
         //setMode(OrderPickingMode.UserSelection);
-    }
+    }*/
 
     private void setMode(OrderPickingMode newMode) {
         // Disable current
@@ -513,32 +540,35 @@ public class NavigationController : MonoBehaviour {
     //}
 
     private void pathIdSelectionTrigger() {
-        setMode(OrderPickingMode.BookInfo);
-        mergeArr = pr.getMergedArry();
-        
-        if(selectedPhase == 0)
+
+        if (Input.GetKeyDown(KeyCode.G))
         {
-            selectedPathId = mergeArr[positionRound - 1, placeRound - 1];
+            setMode(OrderPickingMode.BookInfo);
+            mergeArr = pr.getMergedArry();
+            //Debug.Log(placeRound);
 
-        } else if (selectedPhase == 1)
-        {
-            selectedPathId = mergeArr[positionRound - 1, (placeRound - 1) + 10];
-            Debug.Log((placeRound - 1) + 10);
+            if (selectedPhase == 0)
+            {
+                selectedPathId = mergeArr[0, placeRound - 1];
 
+            }
+            else if (selectedPhase == 1)
+            {
+                selectedPathId = mergeArr[0, (placeRound - 1) + 10];
+            }
 
+            // setup the next view
+            if (selectedPathId != pr.getPathId())
+            {
+                pr.setPathId(selectedPathId);
+                selectedBookNum = 0;
+                record_posted_book.Clear();
+            }
+
+            bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
+            selectedBookTag = "A-0-0";
+            postdata();
         }
-
-        // setup the next view
-        if (selectedPathId != pr.getPathId())
-        {
-            pr.setPathId(selectedPathId);
-            selectedBookNum = 0;
-            record_posted_book.Clear();
-        }
-        bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
-
-        selectedBookTag = "A-0-0";
-        postdata();
     }
 
 
@@ -550,26 +580,35 @@ public class NavigationController : MonoBehaviour {
     private void bookInfoTrigger() {
 
         // get the book, send server data
-        if (!record_posted_book.ContainsKey(selectedBookNum))
+        if (Input.GetKeyDown(KeyCode.G))
         {
-            selectedBookTag = pr.getBookWithLocation(selectedBookNum).book.tag;
-            //Debug.Log(selectedBookTag + " " + (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
-            postdata();
-            record_posted_book.Add(selectedBookNum, "pick");
-        }
-        if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
+            if (!record_posted_book.ContainsKey(selectedBookNum))
+            {
+                selectedBookTag = pr.getBookWithLocation(selectedBookNum).book.tag;
+                //Debug.Log(selectedBookTag + " " + (Int32)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds);
+                postdata();
+                record_posted_book.Add(selectedBookNum, "pick");
+            }
+            if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
+            {
+                selectedBookNum++;
+                bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
+            }
+            if (record_posted_book.Count >= pr.getNumberOfBooksInPath())
+            {
+                // go to next, or notify completion.
+                setMode(OrderPickingMode.Completion);
+            }
+        }else if (Input.GetKeyDown(KeyCode.C))
         {
-            selectedBookNum++;
-            bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
+            setMode(OrderPickingMode.Shelf);
+            shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
         }
-        if (record_posted_book.Count >= pr.getNumberOfBooksInPath())
-        {
-            // go to next, or notify completion.
-            setMode(OrderPickingMode.Completion);
-        }
+      
+       
     }
 
-    private void bookInfoBumper() {
+    /*private void bookInfoBumper() {
         // switch to shelf view
         setMode(OrderPickingMode.Shelf);
         shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
@@ -578,111 +617,119 @@ public class NavigationController : MonoBehaviour {
     private void completionControl(MLInputControllerTouchpadGesture touchpad_gesture)
     {
         // unused
-    }
+    }*/
 
     private void completionTrigger() {
-        
-        selectedBookNum = 0;
-        selectedBookTag = "";
-        record_posted_book.Clear();
- 
-        if (selectedPhase == 0)
-        {
-            if (placeRound == 5)
-            {
-                placeRound = 0;
-                if (positionRound == 4)
-                {
-                    positionRound = 0;
-                    setMode(OrderPickingMode.UserSelection);
-                } else
-                {
-                //setMode(OrderPickingMode.Placement);
 
-                }
-            } else
-            {
-                setMode(OrderPickingMode.PathIdSelection);
-            }
-        }
-        else if (selectedPhase == 1)
+        if (Input.GetKeyDown(KeyCode.G))
         {
-            Debug.Log(placeRound);
-            if (placeRound == 5)
+            selectedBookNum = 0;
+            selectedBookTag = "";
+            record_posted_book.Clear();
+            if (selectedPhase == 0)
             {
-                placeRound = 0;
-                if (positionRound == 4)
+                if (placeRound == 5) //pickpath, training
                 {
-                    positionRound = 0;
+                    placeRound = 0;
                     setMode(OrderPickingMode.UserSelection);
-                    selectedUserId = 0;
-                    selectedPhase = 0; // 0 indicates training, 1 indicates testing
-                    //selectedPathId = 1;
-                    
+
                 }
                 else
                 {
-                   // setMode(OrderPickingMode.Placement);
+                    setMode(OrderPickingMode.PathIdSelection);
                 }
             }
-            else
+            else if (selectedPhase == 1)
             {
-                setMode(OrderPickingMode.PathIdSelection);
+                if (placeRound == 5)
+                {
+                    setMode(OrderPickingMode.UserSelection);
+                    placeRound = 0;
+                    selectedUserId = 0;
+                    selectedPhase = 0; // 0 indicates training, 1 indicates testing      
+                }
+                else
+                {
+                    setMode(OrderPickingMode.PathIdSelection);
+                }
             }
-        }
-        
+        }  
     }
 
-    private void completionBumper() {
+   /* private void completionBumper() {
         // unused
     }
 
     private void shelfControl(MLInputControllerTouchpadGesture touchpad_gesture)
     {
         // unused
-    }
+    }*/
 
     private void shelfTrigger() {
         // get the book, send server data
-        if (!record_posted_book.ContainsKey(selectedBookNum))
+        if (Input.GetKeyDown(KeyCode.G))
         {
-            selectedBookTag = pr.getBookWithLocation(selectedBookNum).book.tag;
-            postdata();
-            record_posted_book.Add(selectedBookNum, "pick");
+            if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
+            {
+                selectedBookNum++;
+                shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
+            }
+            if (!record_posted_book.ContainsKey(selectedBookNum))
+            {
+                selectedBookTag = pr.getBookWithLocation(selectedBookNum).book.tag;
+                postdata();
+                record_posted_book.Add(selectedBookNum, "pick");
+            }
+            if (record_posted_book.Count >= pr.getNumberOfBooksInPath())
+            {
+                // go to next, or notify completion.
+                setMode(OrderPickingMode.Completion);
+            }
         }
-        if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
+        else if (Input.GetKeyDown(KeyCode.C))
         {
-            selectedBookNum++;
-            shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
-        }
-        if (record_posted_book.Count >= pr.getNumberOfBooksInPath())
-        {
-            // go to next, or notify completion.
-            setMode(OrderPickingMode.Completion);
-        }
+            setMode(OrderPickingMode.BookInfo);
+            bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
 
-        else if (Input.GetKeyDown(KeyCode.E))
+        }
+        /*else if (Input.GetKeyDown(KeyCode.E))
         {
             setMode(OrderPickingMode.PathIdSelection);
-        }
+        }*/
     }
 
-    private void shelfBumper() {
+    /*private void shelfBumper() {
         // switch to book info view
         setMode(OrderPickingMode.BookInfo);
         bookInfoView.GetComponent<BookInfoView>().highlightBookInfo(pr.getBookWithLocation(selectedBookNum));
-    }
+    }*/
 
     // Update is called once per frame
     void Update () {
-        if (Input.GetMouseButtonDown(0)) {
-            OnTriggerDown(0, 0);
+        if (currentActiveView == userSelectionView)
+        {
+            userSelectionControl();
         }
-        if (Input.GetKeyDown(KeyCode.B)) {
-            OnBumper();
+        else if (currentActiveView == phaseSelectionView)
+        {
+            phaseSelectionControl();
         }
-        // on desktop only
-        keyAltInput();
+        else if (currentActiveView == pathIdSelectionView)
+        {
+            pathIdSelectionTrigger();
+        }
+        else if (currentActiveView == bookInfoView)
+        {
+            bookInfoTrigger();
+        }
+        else if (currentActiveView == shelfView)
+        {
+            shelfTrigger();
+        }
+        else if (currentActiveView == completionView)
+        {
+            completionTrigger();
+        }
     }
 }
 
