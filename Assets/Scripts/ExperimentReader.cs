@@ -17,7 +17,7 @@ public class ExperimentReader {
             participants = JsonUtility.FromJson<Participants>(dataAsJSON);
             participantsArr = participants.participants;
             foreach (Participant participant in participantsArr) {
-                Debug.Log(participant);
+                //Debug.Log(participant);
             }
         } else
         {

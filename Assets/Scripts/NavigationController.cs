@@ -27,6 +27,7 @@ public class NavigationController : MonoBehaviour {
     public int positionRound = 0; //0-4 keep track of how many positions the user has done
     public int placeRound = 0;
     public String device = "Magic Leap";
+    public int condition = 0;
 
 
     private Dictionary<int, string> record_posted_book;
@@ -546,15 +547,28 @@ public class NavigationController : MonoBehaviour {
             setMode(OrderPickingMode.BookInfo);
             mergeArr = pr.getMergedArry();
             //Debug.Log(placeRound);
+            if (selectedUserId == 0 || selectedUserId == 4 || selectedUserId == 8)
+            {
+                condition = 0;
+            } else if(selectedUserId == 1 || selectedUserId == 6 || selectedUserId == 6 || selectedUserId == 11)
+            {
+                condition = 1;
+            } else if (selectedUserId == 2 || selectedUserId == 7 || selectedUserId == 9)
+            {
+                condition = 2;
+            } else if (selectedUserId == 3 || selectedUserId == 5 || selectedUserId == 10)
+            {
+                condition = 3;
+            }
 
             if (selectedPhase == 0)
             {
-                selectedPathId = mergeArr[0, placeRound - 1];
+                selectedPathId = mergeArr[condition, placeRound - 1];
 
             }
             else if (selectedPhase == 1)
             {
-                selectedPathId = mergeArr[0, (placeRound - 1) + 10];
+                selectedPathId = mergeArr[condition, (placeRound - 1) + 10];
             }
 
             // setup the next view

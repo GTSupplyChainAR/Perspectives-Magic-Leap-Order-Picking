@@ -1359,7 +1359,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &384780928
 RectTransform:
   m_ObjectHideFlags: 0
@@ -7473,6 +7473,8 @@ MonoBehaviour:
   selectedBookTag: 
   positionRound: 0
   placeRound: 0
+  device: Magic Leap
+  condition: 0
 --- !u!65 &1808712530
 BoxCollider:
   m_ObjectHideFlags: 0
