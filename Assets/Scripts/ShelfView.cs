@@ -17,7 +17,7 @@ public class ShelfView : MonoBehaviour
         "green_block",
         "blue_block",
         "purple_block",
-        "sunset_block"
+        "sunset_block",
     };
     string[] empty_block_names = new string[] {
         "red_empty_block",
@@ -26,8 +26,7 @@ public class ShelfView : MonoBehaviour
         "green_empty_block",
         "blue_empty_block",
         "purple_empty_block",
-        "sunset_empty_block"
-
+        "sunset_empty_block",
     };
     public void init()
     {
@@ -65,10 +64,11 @@ public class ShelfView : MonoBehaviour
     private void highlightBlock(int row, int column)
     {
         
-        if (row >= 0 && row < 7 && column >= 0 && column < 3)
+        if (row >= 0 && row < 8 && column >= 0 && column < 3)
         {
             Sprite block = Resources.Load<Sprite>(this.block_names[row]);
             GameObject.Find("empty_block_" + row + "_" + column).GetComponent<SpriteRenderer>().sprite = block;
+
             if(row == highlight_row && column == highlight_col)
             {
                 // no action
@@ -94,8 +94,8 @@ public class ShelfView : MonoBehaviour
         string aisle = loc[0];
         
             highlightBlock(row_id, col_id);
-            updateColoumTexts(new string[] { "1", "2", "3" });
-            updateAisle(aisle);
+            //updateColoumTexts(new string[] { "1", "2", "3" });
+            //updateAisle(aisle);
        
     }
     void Start()

@@ -683,17 +683,18 @@ public class NavigationController : MonoBehaviour {
         // get the book, send server data
         if (Input.GetKeyDown(KeyCode.G))
         {
-            if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
-            {
-                selectedBookNum++;
-                shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
-            }
             if (!record_posted_book.ContainsKey(selectedBookNum))
             {
                 selectedBookTag = pr.getBookWithLocation(selectedBookNum).book.tag;
                 postdata();
                 record_posted_book.Add(selectedBookNum, "pick");
             }
+            if (selectedBookNum + 1 < pr.getNumberOfBooksInPath())
+            {
+                selectedBookNum++;
+                shelfView.GetComponent<ShelfView>().highlightBlock(pr.getBookWithLocation(selectedBookNum));
+            }
+            
             if (record_posted_book.Count >= pr.getNumberOfBooksInPath())
             {
                 // go to next, or notify completion.

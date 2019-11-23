@@ -19,25 +19,12 @@ The examples that use these privileges demonstrate how this is done.
 <!--
 Unity will automatically fill in areas marked as Placeholder from the Player Settings.
 -->
-<manifest xmlns:ml="magicleap" ml:package="Placeholder" ml:version_code="1" ml:version_name="">
-  <application ml:sdk_version="1.0" ml:visible_name="Placeholder">
-    <!--Examples using AudioCaptureMic: VideoCapture-->
-    <uses-privilege ml:name="AudioCaptureMic" />
-    <!--Examples using CameraCapture: ImageCapture, ImageTracking, VideoCapture-->
-    <uses-privilege ml:name="CameraCapture" />
-    <!--Examples using GesturesSubscribe: HandTracking-->
-    <uses-privilege ml:name="GesturesSubscribe" />
-    <!--Examples using GesturesConfig: HandTracking-->
-    <uses-privilege ml:name="GesturesConfig" />
-    <!--Examples using Internet: MediaPlayer-->
+
+<manifest xmlns:ml="magicleap" ml:package="com.company.productname" ml:version_code="1" ml:version_name="">
+  <application ml:visible_name="OrderPickingHoloLens" ml:sdk_version="1.0" ml:min_api_level="1">
+    <uses-privilege ml:name="LowLatencyLightwear" />
     <uses-privilege ml:name="Internet" />
-    <!--Examples using PwFoundObjRead: Persistence-->
-    <uses-privilege ml:name="PwFoundObjRead" />
-    <!--Examples using WorldReconstruction: Meshing, Planes, Raycast-->
-    <uses-privilege ml:name="WorldReconstruction" />
-    <!--Examples using ControllerPose : Controller, Persistence, ImageCapture, VideoCapture, MediaPlayer, Raycast -->
-    <uses-privilege ml:name="ControllerPose" />
-    <component ml:binary_name="bin/Player.elf" ml:name=".fullscreen" ml:type="Fullscreen" ml:visible_name="Placeholder">
+    <component ml:name=".fullscreen" ml:visible_name="OrderPickingHoloLens" ml:binary_name="bin/Player.elf" ml:type="Fullscreen">
       <icon ml:model_folder="Icon/Model" ml:portal_folder="Icon/Portal" />
     </component>
   </application>
